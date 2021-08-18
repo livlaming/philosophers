@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/17 15:53:35 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/18 16:47:48 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,41 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/time.h>
 
 int mails = 0;
 pthread_mutex_t mutex;
 
 void* routine() {
-    for (int i = 0; i < 10000000; i++) {
+    // for (int i = 0; i < 10; i++) {
         pthread_mutex_lock(&mutex);
         mails++;
+        struct timeval  tv;
+        gettimeofday(&tv, NULL);
+        uint64_t time_in_mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000 ; // sec to millisec
+        printf("%lld X has taken a fork\n", time_in_mill);
+        printf("%lld X is eating\n", time_in_mill);
+        printf("%lld X is sleeping\n", time_in_mill);
+        printf("%lld X died\n", time_in_mill);
         pthread_mutex_unlock(&mutex);
-    }
     return(NULL);
 }
-
-
+#include <stdio.h>
 int create_threads_philo(t_info *philo)
 {
     pthread_t *th;
     int i;
+    int *forks;
 
-    i = 0;
+    i = 1;
     th = malloc(sizeof(pthread_t) * philo->no_philo);
+    forks = malloc(sizeof(char) * philo->no_forks);
+    while(i < philo->no_forks)
+    {
+        forks[i] = i;
+        i++;
+    }
+    i = 0;
     pthread_mutex_init(&mutex, NULL);
     while (i < philo->no_philo)
     {
