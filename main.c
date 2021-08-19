@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 15:36:39 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 16:38:18 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 // ◦ timestamp_in_ms X died
 
 // int mails = 0;
-// pthread_mutex_t mutex;
+pthread_mutex_t mutex;
 
 int     get_time()
 {
@@ -46,9 +46,12 @@ int     get_time()
     return (0);
 }
 
-void* routine() {
+void* routine(void *philo) 
+{
     // for (int i = 0; i < 10; i++) {
-        // pthread_mutex_lock(&mutex);
+        pthread_mutex_lock(&mutex);
+        if (print_cur_philo_struct(philo) == -1)
+            printf("Error");
         // mails++;
         // struct timeval  tv;
         // gettimeofday(&tv, NULL);
@@ -57,8 +60,11 @@ void* routine() {
         // printf("%d X is eating\n", time_in_mill);
         // printf("%d X is sleeping\n", time_in_mill);
         // printf("%d X died\n", time_in_mill);
-        // pthread_mutex_unlock(&mutex);
-    printf("routine\n");
+        pthread_mutex_unlock(&mutex);
+    // printf("routine\n");
+    
+    
+        // return (-1);
     return(NULL);
 }
 
@@ -69,11 +75,11 @@ int create_threads(t_info *info, t_philo *philo)
 
     thread = malloc(sizeof(pthread_t) * info->num_of_philo);
     i = 0;
-    philo = NULL; // 
+    // philo = NULL; // 
     // pthread_mutex_init(&mutex, NULL);
     while (i < info->num_of_philo)
     {
-        if (pthread_create(&thread[i], NULL, &routine, NULL) != 0)
+        if (pthread_create(&thread[i], NULL, &routine, &philo[i + 1]) != 0)
         {
             perror("Failed to create thread");
             return 1;
@@ -120,11 +126,11 @@ int init_info_struct(t_info *info, char **argv, int argc)
     if (argc == 6)
 	    info->num_of_meals = ft_atoi(argv[5]);
 	info->forks = malloc(sizeof(pthread_mutex_t) * info->num_of_forks);
-    // while(i < info->num_of_forks)
-    // {
-    //     pthread_mutex_init(&info->forks[i], NULL);
-    //     i++;
-    // }
+    while(i < info->num_of_forks)
+    {
+        pthread_mutex_init(&info->forks[i], NULL);
+        i++;
+    }
 	info->start_time = get_time();
     return(0);
 }
@@ -179,10 +185,10 @@ int main(int argc, char **argv)
         return (-1);
     if (init_philo_struct(info, philo) == -1)
         return(error_message(info, philo, 1));
-    if (print_cur_struct(info, philo) == -1)
-        return (-1);
-    // if (create_threads(info, philo) == -1)
-    //     return (-1);  
+    // if (print_cur_info_struct(info) == -1 || print_cur_philo_struct(philo) == -1)
+    //     return (-1);
+    if (create_threads(info, philo) == -1)
+        return (-1);  
     free(philo); 
     free(info);
     return (0);

@@ -6,17 +6,17 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/19 15:03:36 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 16:08:42 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 16:26:47 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdio.h>
 
-int     print_cur_struct(t_info *info, t_philo *philo)
+int     print_cur_info_struct(t_info *info)
 {
     int i = 0;
-    INFO//
+    // INFO//
     printf("INFO STRUCT!\n");
     
 	printf("num_of_philo: %d\n", info->num_of_philo);
@@ -26,16 +26,21 @@ int     print_cur_struct(t_info *info, t_philo *philo)
     printf("time_to_sleep: %d\n", info->time_to_sleep);
     if (info->num_of_meals)
         printf("num_of_meals: %d\n", info->num_of_meals);
-    while(i < info->num_of_forks)
+    while(i < info->num_of_forks && &info->forks[i])
     {
         printf("thread %d\n", i + 1);
         // printf("forks: %pthread_mutex_t *", &info->forks[i]);
         i++;
     }
+    return (0);
+}
 
+int     print_cur_philo_struct(t_philo *philo)
+{
+    int i = 0;
+    
     printf("PHILO STRUCT!");
-    i = 0;
-    while (i < info->num_of_philo)
+    while (i < 5)
     {
         printf("ID: %d\n", philo[i].ID);
         // printf("%d\n", philo[i].lfork);

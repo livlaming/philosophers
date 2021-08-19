@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 15:06:46 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 16:26:11 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ typedef struct		s_philo
 
 // uint64_t    ft_atou(const char *str);
 int         ft_atoi(const char *str);
-int     print_cur_struct(t_info *info, t_philo *philo); ////////WEG!
+int     print_cur_info_struct(t_info *info);
+int     print_cur_philo_struct(t_philo *philo);
+
 
 
 #endif
