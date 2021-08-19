@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 15:31:05 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 15:36:39 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ int main(int argc, char **argv)
     t_philo *philo;
     
     info = malloc(sizeof(t_info));
+    if (!info)
+        return (-1);
     philo = NULL;
     if ((argc != 5 && argc != 6) || check_input(argc, argv) == -1)
         return(error_message(info, philo, 1));
