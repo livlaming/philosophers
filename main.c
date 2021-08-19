@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 16:38:18 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 16:47:36 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,11 @@ int     get_time()
 void* routine(void *philo) 
 {
     // for (int i = 0; i < 10; i++) {
-        pthread_mutex_lock(&mutex);
+        // pthread_mutex_lock(&mutex);
         if (print_cur_philo_struct(philo) == -1)
             printf("Error");
+        // philo = NULL;
+        printf("hallo\n");
         // mails++;
         // struct timeval  tv;
         // gettimeofday(&tv, NULL);
@@ -60,7 +62,7 @@ void* routine(void *philo)
         // printf("%d X is eating\n", time_in_mill);
         // printf("%d X is sleeping\n", time_in_mill);
         // printf("%d X died\n", time_in_mill);
-        pthread_mutex_unlock(&mutex);
+        // pthread_mutex_unlock(&mutex);
     // printf("routine\n");
     
     
@@ -79,7 +81,7 @@ int create_threads(t_info *info, t_philo *philo)
     // pthread_mutex_init(&mutex, NULL);
     while (i < info->num_of_philo)
     {
-        if (pthread_create(&thread[i], NULL, &routine, &philo[i + 1]) != 0)
+        if (pthread_create(&thread[i], NULL, &routine, &philo[i]) != 0)
         {
             perror("Failed to create thread");
             return 1;
@@ -114,10 +116,8 @@ int error_message(t_info *info, t_philo *philo, int error)
 int init_info_struct(t_info *info, char **argv, int argc)
 {
     int i;
-    int num;
     
     i = 0;
-    num = 1;
     info->num_of_philo = ft_atoi(argv[1]);
     info->num_of_forks = info->num_of_philo;
     info->time_to_die = ft_atoi(argv[2]);
@@ -148,6 +148,7 @@ int init_philo_struct(t_info *info, t_philo *philo)
 	    philo[ID].time_left = info->time_to_die;
 	    philo[ID].state = ALIVE;
 	    philo[ID].info = info;
+        // print_cur_philo_struct(&philo[ID]);
         ID++;
     }
     return (0);

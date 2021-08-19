@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/19 15:03:36 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 16:26:47 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 16:48:45 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,35 @@ int     print_cur_info_struct(t_info *info)
 }
 
 int     print_cur_philo_struct(t_philo *philo)
-{
-    int i = 0;
-    
-    printf("PHILO STRUCT!");
-    while (i < 5)
-    {
-        printf("ID: %d\n", philo[i].ID);
-        // printf("%d\n", philo[i].lfork);
-	    // printf("%d\n",philo[i].rfork);
-	    printf("time_left: %d\n",philo[i].time_left);
-	    printf("state: %d\n",philo[i].state);
-        i++;
-    }
+{   
+    printf("\n");
+    printf("PHILO STRUCT!\n");
+    printf("------------------\n");
+    printf("ID: %d\n", philo->ID);
+        // printf("%d\n", philo.lfork);
+	    // printf("%d\n",philo.rfork);
+	printf("time_left: %d\n",philo->time_left);
+	printf("state: %d\n",philo->state);
     printf("philo->info->num_of_philo: %d\n", philo->info->num_of_philo);
+    printf("------------------\n");
     return (0);
 }
+
+// int     print_cur_all_philo_struct(t_philo *philo)
+// {
+//     int i = 0;
+    
+//     printf("PHILO STRUCT!");
+
+//     while (i < 5)
+//     {
+//         printf("ID: %d\n", philo[i].ID);
+//         // printf("%d\n", philo[i].lfork);
+// 	    // printf("%d\n",philo[i].rfork);
+// 	    printf("time_left: %d\n",philo[i].time_left);
+// 	    printf("state: %d\n",philo[i].state);
+//         i++;
+//     }
+//     printf("philo->info->num_of_philo: %d\n", philo->info->num_of_philo);
+//     return (0);
+// }
