@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 16:47:36 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 16:56:47 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int     get_time()
 void* routine(void *philo) 
 {
     // for (int i = 0; i < 10; i++) {
-        // pthread_mutex_lock(&mutex);
+        // pthread_mutex_lock(philo->lfork);
         if (print_cur_philo_struct(philo) == -1)
             printf("Error");
         // philo = NULL;
