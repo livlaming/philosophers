@@ -6,7 +6,7 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/08/18 16:26:49 by livlamin      ########   odam.nl          #
+#    Updated: 2021/08/19 11:03:12 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,8 +25,12 @@ all: $(NAME)
 $(NAME): $(SRCS)
 	$(CC) $(CFLAGS) $(SRCS) -o $@
 
+san: $(SRCS)
+	$(CC) $(CFLAGS) -g -fsanitize=thread $(SRCS) -o $(NAME)
+
 clean:
 	$(RM) $(OBJ)
+	$(RM) -rf $(NAME).dSYM
 
 fclean:	clean
 	$(RM) $(NAME)
