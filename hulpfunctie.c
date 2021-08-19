@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/19 15:03:36 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 15:30:26 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/19 16:08:42 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int     print_cur_struct(t_info *info, t_philo *philo)
 {
     int i = 0;
-    //INFO//
+    INFO//
     printf("INFO STRUCT!\n");
     
 	printf("num_of_philo: %d\n", info->num_of_philo);
@@ -32,25 +32,18 @@ int     print_cur_struct(t_info *info, t_philo *philo)
         // printf("forks: %pthread_mutex_t *", &info->forks[i]);
         i++;
     }
-    
-    philo = NULL;
-    // printf("PHILO STRUCT!");
-    // i = 0;
-    // while (i < info->num_of_philo)
-    // {
-    //     printf("ID: %d\n", philo[i].ID);
-    //     // printf("%d\n", philo[i].lfork);
-	//     // printf("%d\n",philo[i].rfork);
-	//     // printf("time_left: %d\n",philo[i].time_left);
-	//     // printf("state: %d\n",philo[i].state);
-    //     i++;
-    // }
-    
-	// // pthread_mutex_t *lfork;
-	// // pthread_mutex_t *rfork;
-    // printf("time_left: %d\n", philo->time_left);
-    // printf("state: %d\n", philo->state);
-    // printf("philo->info->num_of_philo: %d\n", philo->info->num_of_philo);
 
+    printf("PHILO STRUCT!");
+    i = 0;
+    while (i < info->num_of_philo)
+    {
+        printf("ID: %d\n", philo[i].ID);
+        // printf("%d\n", philo[i].lfork);
+	    // printf("%d\n",philo[i].rfork);
+	    printf("time_left: %d\n",philo[i].time_left);
+	    printf("state: %d\n",philo[i].state);
+        i++;
+    }
+    printf("philo->info->num_of_philo: %d\n", philo->info->num_of_philo);
     return (0);
 }
