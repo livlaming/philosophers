@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 16:56:47 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/20 12:13:09 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 // int mails = 0;
 pthread_mutex_t mutex;
 
-int     get_time()
+int     get_time(int start_time)
 {
     struct timeval  tv;
     int time_in_mill;
@@ -43,17 +43,24 @@ int     get_time()
     time_in_mill = 0;
     gettimeofday(&tv, NULL);
     time_in_mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000 ; // sec to millisec
-    return (0);
+    return (time_in_mill - start_time);
 }
 
-void* routine(void *philo) 
+void* routine(void *arg) 
 {
-    // for (int i = 0; i < 10; i++) {
-        // pthread_mutex_lock(philo->lfork);
-        if (print_cur_philo_struct(philo) == -1)
-            printf("Error");
+    t_philo *philo;
+
+    philo = arg;
+    pthread_mutex_lock(philo->lfork);
+    printf("%d %d had taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_lock(philo->rfork);
+    printf("%d %d had taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    usleep(3000);
+
+    // if (print_cur_philo_struct(philo) == -1)
+    //     printf("Error");
         // philo = NULL;
-        printf("hallo\n");
+        // printf("hallo\n");
         // mails++;
         // struct timeval  tv;
         // gettimeofday(&tv, NULL);
@@ -62,12 +69,32 @@ void* routine(void *philo)
         // printf("%d X is eating\n", time_in_mill);
         // printf("%d X is sleeping\n", time_in_mill);
         // printf("%d X died\n", time_in_mill);
-        // pthread_mutex_unlock(&mutex);
-    // printf("routine\n");
     
-    
+        // printf("routine\n");
         // return (-1);
     return(NULL);
+}
+
+int init_philo_struct(t_info *info, t_philo *philo)
+{
+    int ID;
+
+    ID = 0;
+    while (ID < info->num_of_philo)
+    {
+        philo[ID].ID = ID + 1;
+	    philo[ID].lfork = &info->forks[ID];
+        if (ID == info->num_of_philo - 1)
+            philo[ID].rfork = &info->forks[0];
+        else
+	        philo[ID].rfork = &info->forks[ID + 1];
+	    philo[ID].time_left = info->time_to_die;
+	    philo[ID].state = ALIVE;
+	    philo[ID].info = info;
+        // print_cur_philo_struct(&philo[ID]);
+        ID++;
+    }
+    return (0);
 }
 
 int create_threads(t_info *info, t_philo *philo)
@@ -75,9 +102,8 @@ int create_threads(t_info *info, t_philo *philo)
     pthread_t *thread;
     int i;
 
-    thread = malloc(sizeof(pthread_t) * info->num_of_philo);
     i = 0;
-    // philo = NULL; // 
+    thread = malloc(sizeof(pthread_t) * info->num_of_philo);
     // pthread_mutex_init(&mutex, NULL);
     while (i < info->num_of_philo)
     {
@@ -98,7 +124,6 @@ int create_threads(t_info *info, t_philo *philo)
         i++;
     }
     // pthread_mutex_destroy(&mutex);
-    // printf("Number of mails: %d\n", mails);
     return (0);
 }
 
@@ -131,27 +156,8 @@ int init_info_struct(t_info *info, char **argv, int argc)
         pthread_mutex_init(&info->forks[i], NULL);
         i++;
     }
-	info->start_time = get_time();
+	info->start_time = get_time(0);
     return(0);
-}
-
-int init_philo_struct(t_info *info, t_philo *philo)
-{
-    int ID;
-
-    ID = 0;
-    while (ID < info->num_of_philo)
-    {
-        philo[ID].ID = ID + 1;
-	    philo[ID].lfork = &info->forks[ID];
-	    philo[ID].rfork = &info->forks[ID + 1];
-	    philo[ID].time_left = info->time_to_die;
-	    philo[ID].state = ALIVE;
-	    philo[ID].info = info;
-        // print_cur_philo_struct(&philo[ID]);
-        ID++;
-    }
-    return (0);
 }			
 
 int check_input(int argc, char **argv)
@@ -186,8 +192,6 @@ int main(int argc, char **argv)
         return (-1);
     if (init_philo_struct(info, philo) == -1)
         return(error_message(info, philo, 1));
-    // if (print_cur_info_struct(info) == -1 || print_cur_philo_struct(philo) == -1)
-    //     return (-1);
     if (create_threads(info, philo) == -1)
         return (-1);  
     free(philo); 
