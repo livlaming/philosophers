@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/20 12:13:09 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/20 14:00:59 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,43 @@ int     get_time(int start_time)
     return (time_in_mill - start_time);
 }
 
+// unsigned long	get_time_us(void)
+// {
+// 	struct timeval	tv;
+// 	unsigned long	out;
+
+// 	gettimeofday(&tv, NULL);
+// 	out = tv.tv_sec;
+// 	out *= 1000 * 1000;
+// 	out += tv.tv_usec;
+// 	return (out);
+// }
+
+// static void    stupid_sleep(unsigned long ms)
+// {
+//     unsigned long    entry;
+
+//     entry = get_time_us();
+//     ms *= 1000;
+//     while ((get_time_us() - entry) < ms)
+//         usleep(100);
+// }
+
 void* routine(void *arg) 
 {
     t_philo *philo;
 
     philo = arg;
     pthread_mutex_lock(philo->lfork);
-    printf("%d %d had taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
     pthread_mutex_lock(philo->rfork);
-    printf("%d %d had taken a fork\n", get_time(philo->info->start_time), philo->ID);
-    usleep(3000);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    printf("%d %d is eating\n", get_time(philo->info->start_time), philo->ID);
+    usleep(philo->info->time_to_eat / 1000);
+    printf("%d %d is sleeping\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_unlock(philo->lfork);
+    pthread_mutex_unlock(philo->rfork);
+    // printf("%d %d is died\n", get_time(philo->info->start_time), philo->ID);
 
     // if (print_cur_philo_struct(philo) == -1)
     //     printf("Error");
