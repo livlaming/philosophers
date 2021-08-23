@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/20 14:00:59 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/23 17:44:00 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,23 @@
 // ◦ timestamp_in_ms X died
 
 // int mails = 0;
-pthread_mutex_t mutex;
+
+int error_message(t_info *info, t_philo *philo, int error)
+{
+    if (error == 1)
+        write(1, "Invalid input\n", 14);
+
+    if (error == 2)
+    {
+        perror("Failed to create thread");
+        write(1, "Failed to create thread\n", 24);
+    }
+    // free(philo->forks);?
+    //check for mallocs, 
+    free(info);
+    free(philo);
+    return (-1);
+}
 
 int     get_time(int start_time)
 {
@@ -42,7 +58,18 @@ int     get_time(int start_time)
 
     time_in_mill = 0;
     gettimeofday(&tv, NULL);
-    time_in_mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000 ; // sec to millisec
+    time_in_mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000; // sec to millisec
+    return (time_in_mill - start_time);
+}
+
+unsigned long     get_time_useconds(int start_time)
+{
+    struct timeval  tv;
+    unsigned long time_in_useconds;
+
+    time_in_useconds = 0;
+    gettimeofday(&tv, NULL);
+    time_in_useconds = (tv.tv_sec) * 1000 + (tv.tv_usec) ; // sec to millisec
     return (time_in_mill - start_time);
 }
 
@@ -58,17 +85,17 @@ int     get_time(int start_time)
 // 	return (out);
 // }
 
-// static void    stupid_sleep(unsigned long ms)
-// {
-//     unsigned long    entry;
+static void    stupid_sleep(unsigned long ms)
+{
+    unsigned long    entry;
 
-//     entry = get_time_us();
-//     ms *= 1000;
-//     while ((get_time_us() - entry) < ms)
-//         usleep(100);
-// }
+    entry = get_time_us();
+    ms *= 1000;
+    while ((get_time_us() - entry) < ms)
+        usleep(100);
+}
 
-void* routine(void *arg) 
+void* routine_left_right(void *arg) 
 {
     t_philo *philo;
 
@@ -78,29 +105,34 @@ void* routine(void *arg)
     pthread_mutex_lock(philo->rfork);
     printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
     printf("%d %d is eating\n", get_time(philo->info->start_time), philo->ID);
-    usleep(philo->info->time_to_eat / 1000);
+    // usleep(1000 * philo->info->time_to_eat);
+    stupid_sleep(philo->info->time_to_eat);
+    // usleep(10);
     printf("%d %d is sleeping\n", get_time(philo->info->start_time), philo->ID);
     pthread_mutex_unlock(philo->lfork);
     pthread_mutex_unlock(philo->rfork);
     // printf("%d %d is died\n", get_time(philo->info->start_time), philo->ID);
-
-    // if (print_cur_philo_struct(philo) == -1)
-    //     printf("Error");
-        // philo = NULL;
-        // printf("hallo\n");
-        // mails++;
-        // struct timeval  tv;
-        // gettimeofday(&tv, NULL);
-        // int time_in_mill = (tv.tv_sec) * 1000 + (tv.tv_usec) / 1000 ; // sec to millisec
-        // printf("%d X has taken a fork\n", time_in_mill);
-        // printf("%d X is eating\n", time_in_mill);
-        // printf("%d X is sleeping\n", time_in_mill);
-        // printf("%d X died\n", time_in_mill);
-    
-        // printf("routine\n");
-        // return (-1);
     return(NULL);
 }
+
+void* routine_right_left(void *arg) 
+{
+    t_philo *philo;
+
+    philo = arg;
+    pthread_mutex_lock(philo->rfork);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_lock(philo->lfork);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    printf("%d %d is eating\n", get_time(philo->info->start_time), philo->ID);
+    // usleep(philo->info->time_to_eat / 1000);
+    printf("%d %d is sleeping\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_unlock(philo->rfork);
+    pthread_mutex_unlock(philo->lfork);
+    // printf("%d %d is died\n", get_time(philo->info->start_time), philo->ID);
+    return(NULL);
+}
+
 
 int init_philo_struct(t_info *info, t_philo *philo)
 {
@@ -118,7 +150,7 @@ int init_philo_struct(t_info *info, t_philo *philo)
 	    philo[ID].time_left = info->time_to_die;
 	    philo[ID].state = ALIVE;
 	    philo[ID].info = info;
-        // print_cur_philo_struct(&philo[ID]);
+        print_cur_philo_struct(&philo[ID]);
         ID++;
     }
     return (0);
@@ -134,10 +166,15 @@ int create_threads(t_info *info, t_philo *philo)
     // pthread_mutex_init(&mutex, NULL);
     while (i < info->num_of_philo)
     {
-        if (pthread_create(&thread[i], NULL, &routine, &philo[i]) != 0)
+        if (i & 1) //odd
         {
-            perror("Failed to create thread");
-            return 1;
+            if (pthread_create(&thread[i], NULL, &routine_right_left, &philo[i]) != 0)
+                return(error_message(info, philo, 2));
+        }
+        else
+        {
+            if (pthread_create(&thread[i], NULL, &routine_left_right, &philo[i]) != 0)
+                return(error_message(info, philo, 2));
         }
         printf("Thread %d has started\n", i);
         i++;
@@ -152,17 +189,6 @@ int create_threads(t_info *info, t_philo *philo)
     }
     // pthread_mutex_destroy(&mutex);
     return (0);
-}
-
-int error_message(t_info *info, t_philo *philo, int error)
-{
-    if (error == 1)
-        write(1, "Invalid input\n", 14);
-    // free(philo->forks);?
-    //check for mallocs, 
-    free(info);
-    free(philo);
-    return (-1);
 }
 
 int init_info_struct(t_info *info, char **argv, int argc)
@@ -206,10 +232,10 @@ int main(int argc, char **argv)
     t_info *info;
     t_philo *philo;
     
+    philo = NULL;
     info = malloc(sizeof(t_info));
     if (!info)
         return (-1);
-    philo = NULL;
     if ((argc != 5 && argc != 6) || check_input(argc, argv) == -1)
         return(error_message(info, philo, 1));
     if (init_info_struct(info, argv, argc) == -1)
