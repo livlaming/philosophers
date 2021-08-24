@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/19 15:03:36 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/23 17:23:08 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/24 12:59:42 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int     print_cur_philo_struct(t_philo *philo)
     printf("\n");
     printf("PHILO STRUCT!\n");
     printf("------------------\n");
-    printf("ID: %d\n", philo->ID);
+    printf("ID: %d\n", (int)philo->ID);
         // printf("%d\n", philo.lfork);
 	    // printf("%d\n",philo.rfork);
 	printf("time_left: %d\n",philo->time_left);

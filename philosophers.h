@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/19 21:13:21 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/24 12:58:17 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ typedef struct		s_info
 
 typedef struct		s_philo
 {
-	int				ID;
+	long				ID;
 	pthread_mutex_t *lfork;
 	pthread_mutex_t *rfork;
+	int				meals_left;
 	int				time_left;
 	int				state;
 	t_info			*info;

@@ -1,3 +1,32 @@
+
+Skip to content
+Pull requests
+Issues
+Marketplace
+Explore
+@livlaming
+livlaming /
+philosophers
+
+1
+0
+
+    0
+
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+
+More
+philosophers/main.c
+Cannot retrieve latest commit at this time.
+0 contributors
+238 lines (209 sloc) 6.63 KB
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
@@ -6,7 +35,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 13:09:01 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/23 18:05:02 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +62,6 @@
 // ◦ timestamp_in_ms X died
 
 // int mails = 0;
-
-// to do:
-// one philo
-// death regelen
-
 
 int error_message(t_info *info, t_philo *philo, int error)
 {
@@ -93,23 +117,16 @@ void* routine_left_right(void *arg)
     t_philo *philo;
 
     philo = arg;
-    while(philo->time_left > 0)
-    {
-        if (philo->meals_left == 0)
-            return((void*)philo->ID);
-        pthread_mutex_lock(philo->lfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        pthread_mutex_lock(philo->rfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
-        stupid_sleep(philo->info->time_to_eat);
-        if (philo->meals_left != -1)
-            philo->meals_left--;
-        printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
-        stupid_sleep(philo->info->time_to_sleep);
-        pthread_mutex_unlock(philo->lfork);
-        pthread_mutex_unlock(philo->rfork);
-    }
+    pthread_mutex_lock(philo->lfork);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_lock(philo->rfork);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    printf("%d %d is eating\n", get_time(philo->info->start_time), philo->ID);
+    stupid_sleep(philo->info->time_to_eat);
+    // usleep(10);
+    printf("%d %d is sleeping\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_unlock(philo->lfork);
+    pthread_mutex_unlock(philo->rfork);
     // printf("%d %d is died\n", get_time(philo->info->start_time), philo->ID);
     return(NULL);
 }
@@ -119,26 +136,19 @@ void* routine_right_left(void *arg)
     t_philo *philo;
 
     philo = arg;
-    while(philo->time_left > 0)
-    {
-        if (philo->meals_left == 0)
-            return((void*)philo->ID);
-        pthread_mutex_lock(philo->rfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        pthread_mutex_lock(philo->lfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
-        stupid_sleep(philo->info->time_to_eat);
-        if (philo->meals_left != -1)
-            philo->meals_left--;
-        printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
-        stupid_sleep(philo->info->time_to_sleep);
-        pthread_mutex_unlock(philo->rfork);
-        pthread_mutex_unlock(philo->lfork);
-    }
+    pthread_mutex_lock(philo->rfork);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_lock(philo->lfork);
+    printf("%d %d has taken a fork\n", get_time(philo->info->start_time), philo->ID);
+    printf("%d %d is eating\n", get_time(philo->info->start_time), philo->ID);
+    stupid_sleep(philo->info->time_to_eat);
+    printf("%d %d is sleeping\n", get_time(philo->info->start_time), philo->ID);
+    pthread_mutex_unlock(philo->rfork);
+    pthread_mutex_unlock(philo->lfork);
     // printf("%d %d is died\n", get_time(philo->info->start_time), philo->ID);
     return(NULL);
 }
+
 
 int init_philo_struct(t_info *info, t_philo *philo)
 {
@@ -155,7 +165,6 @@ int init_philo_struct(t_info *info, t_philo *philo)
 	        philo[ID].rfork = &info->forks[ID + 1];
 	    philo[ID].time_left = info->time_to_die;
 	    philo[ID].state = ALIVE;
-        philo[ID].meals_left = info->num_of_meals;
 	    philo[ID].info = info;
         print_cur_philo_struct(&philo[ID]);
         ID++;
@@ -166,7 +175,6 @@ int init_philo_struct(t_info *info, t_philo *philo)
 int create_threads(t_info *info, t_philo *philo, int i)
 {
     pthread_t *thread;
-    void *ID = NULL;
 
     thread = malloc(sizeof(pthread_t) * info->num_of_philo);
     // pthread_mutex_init(&mutex, NULL);
@@ -177,7 +185,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
             if (pthread_create(&thread[i], NULL, &routine_right_left, &philo[i]) != 0)
                 return(error_message(info, philo, 2));
         }
-        else //even
+        else
         {
             if (pthread_create(&thread[i], NULL, &routine_left_right, &philo[i]) != 0)
                 return(error_message(info, philo, 2));
@@ -188,13 +196,9 @@ int create_threads(t_info *info, t_philo *philo, int i)
     i = 0;
     while (i < info->num_of_philo)
     {
-        if (pthread_join(thread[i], &ID) != 0)
+        if (pthread_join(thread[i], NULL) != 0)
             return 2;
-        if ((int)&ID != 0)
-        {
-            printf("%d %d died\n", get_time(philo->info->start_time), (int)ID);
-            break;
-        }
+        printf("Thread %d has finished execution\n", i); //
         i++;
     }
     // pthread_mutex_destroy(&mutex);
@@ -212,9 +216,7 @@ int init_info_struct(t_info *info, char **argv, int argc)
 	info->time_to_eat = ft_atoi(argv[3]);
 	info->time_to_sleep = ft_atoi(argv[4]);
     if (argc == 6)
-        info->num_of_meals = ft_atoi(argv[5]);
-    else
-        info->num_of_meals = -1;
+	    info->num_of_meals = ft_atoi(argv[5]);
 	info->forks = malloc(sizeof(pthread_mutex_t) * info->num_of_forks);
     while(i < info->num_of_forks)
     {
