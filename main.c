@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 13:09:01 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/24 13:25:08 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,15 +103,18 @@ void* routine_left_right(void *arg)
         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
         printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
         stupid_sleep(philo->info->time_to_eat);
+        philo->time_left -= philo->info->time_to_eat;
         if (philo->meals_left != -1)
             philo->meals_left--;
         printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
         stupid_sleep(philo->info->time_to_sleep);
+        philo->time_left -= philo->info->time_to_sleep;
+        printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
         pthread_mutex_unlock(philo->lfork);
         pthread_mutex_unlock(philo->rfork);
     }
-    // printf("%d %d is died\n", get_time(philo->info->start_time), philo->ID);
-    return(NULL);
+    return((void*)philo->ID);
+    // return(NULL);
 }
 
 void* routine_right_left(void *arg) 
@@ -129,15 +132,18 @@ void* routine_right_left(void *arg)
         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
         printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
         stupid_sleep(philo->info->time_to_eat);
+        philo->time_left -= philo->info->time_to_eat;
         if (philo->meals_left != -1)
             philo->meals_left--;
         printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
         stupid_sleep(philo->info->time_to_sleep);
+        philo->time_left -= philo->info->time_to_sleep;
+        printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
         pthread_mutex_unlock(philo->rfork);
         pthread_mutex_unlock(philo->lfork);
     }
-    // printf("%d %d is died\n", get_time(philo->info->start_time), philo->ID);
-    return(NULL);
+    return((void*)philo->ID);
+    // return(NULL);
 }
 
 int init_philo_struct(t_info *info, t_philo *philo)
@@ -182,7 +188,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
             if (pthread_create(&thread[i], NULL, &routine_left_right, &philo[i]) != 0)
                 return(error_message(info, philo, 2));
         }
-        printf("Thread %d has started\n", i); //
+        // printf("Thread %d has started\n", i); //
         i++;
     }
     i = 0;
@@ -193,7 +199,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
         if ((int)&ID != 0)
         {
             printf("%d %d died\n", get_time(philo->info->start_time), (int)ID);
-            break;
+            return(-1);
         }
         i++;
     }
