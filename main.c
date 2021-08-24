@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 17:50:12 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/24 17:53:50 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@
 // ◦ timestamp_in_ms X is thinking
 // ◦ timestamp_in_ms X died
 
-// int mails = 0;
 
 // to do:
 // one philo
 // death regelen
-
 
 int error_message(t_info *info, t_philo *philo, int error)
 {
@@ -55,8 +53,6 @@ int error_message(t_info *info, t_philo *philo, int error)
     free(philo);
     return (-1);
 }
-
-
 
 void* routine_left_right(void *arg) 
 {
@@ -162,13 +158,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
         if (pthread_join(thread[i], &ID) != 0)
             return 2;
         if ((int)&ID != 0)
-        {
-            // if (info->num_of_philo_full == info->num_of_philo)
-            // {
-                // printf("%d %d died\n", get_time(philo->info->start_time), (int)ID);
-                return(-1);
-            // }
-        }
+            return(-1);
         i++;
     }
     // pthread_mutex_destroy(&mutex);
@@ -180,6 +170,7 @@ int check_input(int argc, char **argv)
     int i;
 
     i = 0;
+    // check is num
     while (i < argc)
     {
         if (argv[i][0] == '-')
