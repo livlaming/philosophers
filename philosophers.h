@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 12:58:17 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/24 17:48:58 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ typedef struct		s_info
 	int				num_of_meals;
     int             num_of_forks;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t *eat;
+	pthread_mutex_t *write;
 	int				start_time;
+	int				num_of_philo_full;
 }					t_info;
 
 typedef struct		s_philo
@@ -49,10 +52,14 @@ typedef struct		s_philo
 	t_info			*info;
 }					t_philo;
 
-// uint64_t    ft_atou(const char *str);
-int         ft_atoi(const char *str);
-int     print_cur_info_struct(t_info *info);
-int     print_cur_philo_struct(t_philo *philo);
+int     		print_cur_info_struct(t_info *info); //
+int     		print_cur_philo_struct(t_philo *philo); //
+int				ft_atoi(const char *str);
+int				init_philo_struct(t_info *info, t_philo *philo);
+int				init_info_struct(t_info *info, char **argv, int argc);
+int     		get_time(int start_time);
+unsigned long	get_time_useconds(void);
+void			stupid_sleep(unsigned long ms);
 
 
 

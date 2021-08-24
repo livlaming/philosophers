@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 13:25:08 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/08/24 17:50:12 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <pthread.h>
-#include <sys/time.h>
+
 #include <stdio.h>
 
 // number_of_philosophers 
@@ -56,37 +56,7 @@ int error_message(t_info *info, t_philo *philo, int error)
     return (-1);
 }
 
-int     get_time(int start_time)
-{
-    struct timeval  tv;
-    int time_in_mill;
 
-    time_in_mill = 0;
-    gettimeofday(&tv, NULL);
-    time_in_mill = (tv.tv_sec * 1000) + (tv.tv_usec / 1000); // sec to millisec
-    return (time_in_mill - start_time);
-}
-
-unsigned long     get_time_useconds(void)
-{
-    struct timeval  tv;
-    unsigned long time_in_useconds;
-
-    time_in_useconds = 0;
-    gettimeofday(&tv, NULL);
-    time_in_useconds = (tv.tv_sec * 1000000) + tv.tv_usec; // sec to microsec
-    return (time_in_useconds);
-}
-
-void    stupid_sleep(unsigned long ms)
-{
-    unsigned long    entry;
-
-    entry = get_time_useconds();
-    ms *= 1000;
-    while ((get_time_useconds() - entry) < ms)
-        usleep(100);
-}
 
 void* routine_left_right(void *arg) 
 {
@@ -95,23 +65,32 @@ void* routine_left_right(void *arg)
     philo = arg;
     while(philo->time_left > 0)
     {
-        if (philo->meals_left == 0)
-            return((void*)philo->ID);
         pthread_mutex_lock(philo->lfork);
         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
         pthread_mutex_lock(philo->rfork);
         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
         printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
+        pthread_mutex_lock(philo->info->eat);
         stupid_sleep(philo->info->time_to_eat);
-        philo->time_left -= philo->info->time_to_eat;
         if (philo->meals_left != -1)
             philo->meals_left--;
+        if (philo->meals_left == 0)
+            philo->info->num_of_philo_full++;
+        if (philo->info->num_of_meals != -1 && philo->info->num_of_philo_full == philo->info->num_of_philo)
+        {
+            printf("%d %d died\n", get_time(philo->info->start_time), (int)philo->ID);
+            pthread_mutex_unlock(philo->info->eat);
+            pthread_mutex_unlock(philo->lfork);
+            pthread_mutex_unlock(philo->rfork);
+            return((void*)philo->ID);
+        }
+        pthread_mutex_unlock(philo->info->eat);
+        pthread_mutex_unlock(philo->rfork);
+        pthread_mutex_unlock(philo->lfork);
         printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
         stupid_sleep(philo->info->time_to_sleep);
-        philo->time_left -= philo->info->time_to_sleep;
         printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
-        pthread_mutex_unlock(philo->lfork);
-        pthread_mutex_unlock(philo->rfork);
+        
     }
     return((void*)philo->ID);
     // return(NULL);
@@ -124,49 +103,35 @@ void* routine_right_left(void *arg)
     philo = arg;
     while(philo->time_left > 0)
     {
-        if (philo->meals_left == 0)
-            return((void*)philo->ID);
         pthread_mutex_lock(philo->rfork);
         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
         pthread_mutex_lock(philo->lfork);
         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
         printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
+        pthread_mutex_lock(philo->info->eat);
         stupid_sleep(philo->info->time_to_eat);
-        philo->time_left -= philo->info->time_to_eat;
         if (philo->meals_left != -1)
             philo->meals_left--;
-        printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
-        stupid_sleep(philo->info->time_to_sleep);
-        philo->time_left -= philo->info->time_to_sleep;
-        printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
+        if (philo->meals_left == 0)
+            philo->info->num_of_philo_full++;
+        if (philo->info->num_of_meals != -1 && philo->info->num_of_philo_full == philo->info->num_of_philo)
+        {
+            printf("%d %d died\n", get_time(philo->info->start_time), (int)philo->ID);
+            pthread_mutex_unlock(philo->info->eat);
+            pthread_mutex_unlock(philo->lfork);
+            pthread_mutex_unlock(philo->rfork);
+            return((void*)philo->ID);
+        }
+        pthread_mutex_unlock(philo->info->eat);
         pthread_mutex_unlock(philo->rfork);
         pthread_mutex_unlock(philo->lfork);
+        printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
+        stupid_sleep(philo->info->time_to_sleep);
+        printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
+        
     }
     return((void*)philo->ID);
     // return(NULL);
-}
-
-int init_philo_struct(t_info *info, t_philo *philo)
-{
-    int ID;
-
-    ID = 0;
-    while (ID < info->num_of_philo)
-    {
-        philo[ID].ID = ID + 1;
-	    philo[ID].lfork = &info->forks[ID];
-        if (ID == info->num_of_philo - 1)
-            philo[ID].rfork = &info->forks[0];
-        else
-	        philo[ID].rfork = &info->forks[ID + 1];
-	    philo[ID].time_left = info->time_to_die;
-	    philo[ID].state = ALIVE;
-        philo[ID].meals_left = info->num_of_meals;
-	    philo[ID].info = info;
-        print_cur_philo_struct(&philo[ID]);
-        ID++;
-    }
-    return (0);
 }
 
 int create_threads(t_info *info, t_philo *philo, int i)
@@ -198,37 +163,16 @@ int create_threads(t_info *info, t_philo *philo, int i)
             return 2;
         if ((int)&ID != 0)
         {
-            printf("%d %d died\n", get_time(philo->info->start_time), (int)ID);
-            return(-1);
+            // if (info->num_of_philo_full == info->num_of_philo)
+            // {
+                // printf("%d %d died\n", get_time(philo->info->start_time), (int)ID);
+                return(-1);
+            // }
         }
         i++;
     }
     // pthread_mutex_destroy(&mutex);
     return (0);
-}
-
-int init_info_struct(t_info *info, char **argv, int argc)
-{
-    int i;
-    
-    i = 0;
-    info->num_of_philo = ft_atoi(argv[1]);
-    info->num_of_forks = info->num_of_philo;
-    info->time_to_die = ft_atoi(argv[2]);
-	info->time_to_eat = ft_atoi(argv[3]);
-	info->time_to_sleep = ft_atoi(argv[4]);
-    if (argc == 6)
-        info->num_of_meals = ft_atoi(argv[5]);
-    else
-        info->num_of_meals = -1;
-	info->forks = malloc(sizeof(pthread_mutex_t) * info->num_of_forks);
-    while(i < info->num_of_forks)
-    {
-        pthread_mutex_init(&info->forks[i], NULL);
-        i++;
-    }
-	info->start_time = get_time(0);
-    return(0);
 }			
 
 int check_input(int argc, char **argv)
@@ -269,3 +213,104 @@ int main(int argc, char **argv)
     free(info);
     return (0);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// void* routine_left_right(void *arg) 
+// {
+//     t_philo *philo;
+
+//     philo = arg;
+//     while(philo->time_left > 0)
+//     {
+//         if (philo->meals_left == 0)
+//             return((void*)philo->ID);
+//         pthread_mutex_lock(philo->lfork);
+//         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
+//         pthread_mutex_lock(philo->rfork);
+//         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
+//         printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
+//         stupid_sleep(philo->info->time_to_eat);
+//         philo->time_left -= philo->info->time_to_eat;
+//         if (philo->meals_left != -1)
+//             philo->meals_left--;
+//         printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
+//         stupid_sleep(philo->info->time_to_sleep);
+//         philo->time_left -= philo->info->time_to_sleep;
+//         printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
+//         pthread_mutex_unlock(philo->lfork);
+//         pthread_mutex_unlock(philo->rfork);
+//     }
+//     // return((void*)philo->ID);
+//     return(NULL);
+// }
+
+// void* routine_right_left(void *arg) 
+// {
+//     t_philo *philo;
+
+//     philo = arg;
+//     while(philo->time_left > 0)
+//     {
+//         if (philo->meals_left == 0)
+//             return((void*)philo->ID);
+//         pthread_mutex_lock(philo->rfork);
+//         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
+//         pthread_mutex_lock(philo->lfork);
+//         printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
+//         printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
+//         stupid_sleep(philo->info->time_to_eat);
+//         philo->time_left -= philo->info->time_to_eat;
+//         if (philo->meals_left != -1)
+//             philo->meals_left--;
+//         printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
+//         stupid_sleep(philo->info->time_to_sleep);
+//         philo->time_left -= philo->info->time_to_sleep;
+//         printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
+//         pthread_mutex_unlock(philo->rfork);
+//         pthread_mutex_unlock(philo->lfork);
+//     }
+//     // return((void*)philo->ID);
+//     return(NULL);
+// }
