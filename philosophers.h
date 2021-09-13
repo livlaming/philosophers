@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 17:48:58 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/13 12:27:44 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_philo
 	pthread_mutex_t *rfork;
 	int				meals_left;
 	int				time_left;
+	int				last_eaten;
 	int				state;
 	t_info			*info;
 }					t_philo;
@@ -60,7 +61,7 @@ int				init_info_struct(t_info *info, char **argv, int argc);
 int     		get_time(int start_time);
 unsigned long	get_time_useconds(void);
 void			stupid_sleep(unsigned long ms);
-
-
+void*			routine_left_right(void *arg);
+void*			routine_right_left(void *arg);
 
 #endif

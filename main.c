@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 17:53:50 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/13 13:43:09 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,80 +54,20 @@ int error_message(t_info *info, t_philo *philo, int error)
     return (-1);
 }
 
-void* routine_left_right(void *arg) 
+int     join_thread(void *ID, t_info *info, pthread_t *thread)
 {
-    t_philo *philo;
-
-    philo = arg;
-    while(philo->time_left > 0)
+    int i;
+    
+    i = 0;
+    while (i < info->num_of_philo)
     {
-        pthread_mutex_lock(philo->lfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        pthread_mutex_lock(philo->rfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
-        pthread_mutex_lock(philo->info->eat);
-        stupid_sleep(philo->info->time_to_eat);
-        if (philo->meals_left != -1)
-            philo->meals_left--;
-        if (philo->meals_left == 0)
-            philo->info->num_of_philo_full++;
-        if (philo->info->num_of_meals != -1 && philo->info->num_of_philo_full == philo->info->num_of_philo)
-        {
-            printf("%d %d died\n", get_time(philo->info->start_time), (int)philo->ID);
-            pthread_mutex_unlock(philo->info->eat);
-            pthread_mutex_unlock(philo->lfork);
-            pthread_mutex_unlock(philo->rfork);
-            return((void*)philo->ID);
-        }
-        pthread_mutex_unlock(philo->info->eat);
-        pthread_mutex_unlock(philo->rfork);
-        pthread_mutex_unlock(philo->lfork);
-        printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
-        stupid_sleep(philo->info->time_to_sleep);
-        printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
-        
+        if (pthread_join(thread[i], &ID) != 0)
+            return (2);
+        if ((int)&ID != 0)
+            return(-1);
+        i++;
     }
-    return((void*)philo->ID);
-    // return(NULL);
-}
-
-void* routine_right_left(void *arg) 
-{
-    t_philo *philo;
-
-    philo = arg;
-    while(philo->time_left > 0)
-    {
-        pthread_mutex_lock(philo->rfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        pthread_mutex_lock(philo->lfork);
-        printf("%d %d has taken a fork\n", get_time(philo->info->start_time), (int)philo->ID);
-        printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
-        pthread_mutex_lock(philo->info->eat);
-        stupid_sleep(philo->info->time_to_eat);
-        if (philo->meals_left != -1)
-            philo->meals_left--;
-        if (philo->meals_left == 0)
-            philo->info->num_of_philo_full++;
-        if (philo->info->num_of_meals != -1 && philo->info->num_of_philo_full == philo->info->num_of_philo)
-        {
-            printf("%d %d died\n", get_time(philo->info->start_time), (int)philo->ID);
-            pthread_mutex_unlock(philo->info->eat);
-            pthread_mutex_unlock(philo->lfork);
-            pthread_mutex_unlock(philo->rfork);
-            return((void*)philo->ID);
-        }
-        pthread_mutex_unlock(philo->info->eat);
-        pthread_mutex_unlock(philo->rfork);
-        pthread_mutex_unlock(philo->lfork);
-        printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
-        stupid_sleep(philo->info->time_to_sleep);
-        printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
-        
-    }
-    return((void*)philo->ID);
-    // return(NULL);
+    return (0);
 }
 
 int create_threads(t_info *info, t_philo *philo, int i)
@@ -152,15 +92,9 @@ int create_threads(t_info *info, t_philo *philo, int i)
         // printf("Thread %d has started\n", i); //
         i++;
     }
-    i = 0;
-    while (i < info->num_of_philo)
-    {
-        if (pthread_join(thread[i], &ID) != 0)
-            return 2;
-        if ((int)&ID != 0)
-            return(-1);
-        i++;
-    }
+    i = join_thread(ID, info, thread);
+    if (i != 0)
+        return (i);
     // pthread_mutex_destroy(&mutex);
     return (0);
 }			

@@ -6,15 +6,17 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/08/24 17:49:09 by livlamin      ########   odam.nl          #
+#    Updated: 2021/09/13 10:25:20 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo
+NAME = philo_one
 SRCS = main.c \
 		ft_atou.c \
 		init_structs.c \
 		time.c \
+		routine_left_right.c \
+		routine_right_left.c \
 		hulpfunctie.c 
 		# ft_itoa.c 
 		# ft_strdup.c
