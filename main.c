@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/14 15:38:36 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/14 16:47:43 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,14 @@ void manage(t_philo *philo)
         while (ID < philo->info->num_of_philo)
         {
             get_time(philo[ID].time_left);
-            if (philo[ID].time_left - philo[ID].last_eaten < philo->info->time_to_die)
+            if (philo[ID].time_left - philo[ID].last_eaten < philo->info->time_to_die && philo->state == ALIVE)
             {
+                philo[ID].state = DEAD;
                 printf("%d %d died\n", get_time(philo->info->start_time), (int)philo->ID);
-                return;
+                // return;
             }
+            if (philo->info->num_of_philo_full == philo->info->num_of_philo)
+                break;
             ID++;
         }
         ID = 0;
