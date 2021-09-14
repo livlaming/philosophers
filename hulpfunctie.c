@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/19 15:03:36 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 16:37:38 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/14 15:33:16 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int     print_cur_philo_struct(t_philo *philo)
         // printf("%d\n", philo.lfork);
 	    // printf("%d\n",philo.rfork);
 	printf("time_left: %d\n",philo->time_left);
-	printf("state: %d\n",philo->state);
+	// printf("state: %d\n",philo->manage);
     printf("philo->info->num_of_philo: %d\n", philo->info->num_of_philo);
     printf("time_to_die: %d\n", philo->info->time_to_die);
     printf("time_to_eat: %d\n", philo->info->time_to_eat);

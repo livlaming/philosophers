@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/13 12:27:44 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/14 15:39:26 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct		s_philo
 	int				time_left;
 	int				last_eaten;
 	int				state;
+	pthread_mutex_t	manage;
 	t_info			*info;
 }					t_philo;
 

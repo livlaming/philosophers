@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/13 13:43:09 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/14 15:38:36 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,35 @@ int     join_thread(void *ID, t_info *info, pthread_t *thread)
     return (0);
 }
 
+void manage(t_philo *philo)
+{
+    int ID;
+
+    ID = 0;
+    pthread_mutex_lock(&philo->manage);
+    while(1)
+    {
+        while (ID < philo->info->num_of_philo)
+        {
+            get_time(philo[ID].time_left);
+            if (philo[ID].time_left - philo[ID].last_eaten < philo->info->time_to_die)
+            {
+                printf("%d %d died\n", get_time(philo->info->start_time), (int)philo->ID);
+                return;
+            }
+            ID++;
+        }
+        ID = 0;
+    }
+    pthread_mutex_unlock(&philo->manage);
+}
+
 int create_threads(t_info *info, t_philo *philo, int i)
 {
     pthread_t *thread;
-    void *ID = NULL;
-
+    void *ID;
+    
+    ID = NULL;
     thread = malloc(sizeof(pthread_t) * info->num_of_philo);
     // pthread_mutex_init(&mutex, NULL);
     while (i < info->num_of_philo)
@@ -92,6 +116,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
         // printf("Thread %d has started\n", i); //
         i++;
     }
+    manage(philo);
     i = join_thread(ID, info, thread);
     if (i != 0)
         return (i);
