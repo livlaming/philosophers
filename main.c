@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/16 15:15:46 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/16 15:46:23 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,9 @@ int create_threads(t_info *info, t_philo *philo, int i)
         return (i);
     // pthread_mutex_destroy(&mutex);
     return (0);
-}			
+}	
+
+
 
 int check_input(int argc, char **argv)
 {

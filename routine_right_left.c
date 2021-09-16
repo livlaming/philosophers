@@ -6,12 +6,14 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/13 10:24:38 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/16 15:05:01 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/16 15:37:24 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdio.h>
+
+#include <stdlib.h>
 
 void* routine_right_left(void *arg) 
 {
