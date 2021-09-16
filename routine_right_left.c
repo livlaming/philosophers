@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/13 10:24:38 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/16 15:37:24 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/16 15:56:46 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void* routine_right_left(void *arg)
         printf("%d %d is eating\n", get_time(philo->info->start_time), (int)philo->ID);
         stupid_sleep(philo->info->time_to_eat);
         philo->last_eaten = get_time(philo->info->start_time);
+        philo->time_left = philo->info->time_to_die;
         if (philo->meals_left > 0)
             philo->meals_left--;
         if (philo->meals_left == 0)
