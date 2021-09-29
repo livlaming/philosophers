@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/29 13:57:33 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/09/29 14:02:47 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,13 +132,15 @@ int check_input(int argc, char **argv)
     int i;
 
     i = 0;
-    while (i < argc && argv[i][0] >= '0' && argv[i][0] <= '9')
+
+    // ga ook door argv[i][c] = door c heen 
+    while (i < argc &&  argv[i][0] >= '0' && argv[i][0] <= '9')
     {
         if (argv[i][0] == '-')
             return(-1);
         i++;
     }
-    if (argv[i][0] <= '0' && argv[i][0] <= '9')
+    if (argv[i][0] < '0' && argv[i][0] > '9')
         return (-1);
     return (0);
 }
