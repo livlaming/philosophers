@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/05 14:32:50 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/05 14:50:30 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,12 +108,12 @@ int create_threads(t_info *info, t_philo *philo, int i)
     // pthread_mutex_init(&mutex, NULL);
     while (i < info->num_of_philo)
     {
-        if (i & 1) //odd
+        if (i & 1) //even?
         {
             if (pthread_create(&thread[i], NULL, &routine_right_left, &philo[i]) != 0)
                 return(error_message(info, philo, 2));
         }
-        else //even
+        else //odd
         {
             if (pthread_create(&thread[i], NULL, &routine_left_right, &philo[i]) != 0)
                 return(error_message(info, philo, 2));
