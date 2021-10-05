@@ -1,4 +1,7 @@
 
+voor nu dead checken en error log
+
+
 
 while (philo[ID])
 {
