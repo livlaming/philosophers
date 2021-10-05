@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/05 11:47:36 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/05 12:14:22 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,17 +152,17 @@ int main(int argc, char **argv)
         return (-1);
     if ((argc != 5 && argc != 6) || check_input(argc, argv) == -1)
         return(error_message(info, philo, 1));
-    // if (init_info_struct(info, argv, argc) == -1)
-    //     return(error_message(info, philo, 1));
-    // philo = malloc(sizeof(t_philo) * info->num_of_philo);
-    // if (!philo)
-    //     return (-1);
-    // if (init_philo_struct(info, philo) == -1)
-    //     return(error_message(info, philo, 1));
-    // if (create_threads(info, philo, 0) == -1)
-    //     return (-1);  
-    // free(philo); 
-    // free(info);
+    if (init_info_struct(info, argv, argc) == -1)
+        return(error_message(info, philo, 1));
+    philo = malloc(sizeof(t_philo) * info->num_of_philo);
+    if (!philo)
+        return (-1);
+    if (init_philo_struct(info, philo) == -1)
+        return(error_message(info, philo, 1));
+    if (create_threads(info, philo, 0) == -1)
+        return (-1);  
+    free(philo); 
+    free(info);
     return (0);
 }
 
