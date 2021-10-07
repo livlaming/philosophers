@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/05 14:50:30 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/07 11:41:21 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,14 @@ void manage(t_philo *philo)
             {
                 philo[ID].state = DEAD;
                 printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
+                pthread_mutex_unlock(&philo->manage);
                 return;
             }
             if (philo->info->num_of_philo_full == philo->info->num_of_philo)
             {
                 printf("All philosophers are full");
+                // printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
+                pthread_mutex_unlock(&philo->manage);
                 return;
             }
             ID++;
