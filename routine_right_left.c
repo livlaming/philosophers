@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/13 10:24:38 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/07 13:41:51 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/07 14:24:53 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,14 @@ void* routine_right_left(void *arg)
         stupid_sleep(philo->info->time_to_eat);
         philo->last_eaten = get_time(philo->info->start_time);
         philo->time_left = philo->info->time_to_die;
-        // if (philo->meals_left > 0)
-            philo->meals_left--;
-        if (philo->meals_left == 0)
-            philo->info->num_of_philo_full++;
         pthread_mutex_unlock(philo->rfork); //moeten deze eerder?
         pthread_mutex_unlock(philo->lfork); //moeten deze eerder?
+        // if (philo->meals_left > 0)
+        philo->meals_left--;
+        if (philo->meals_left == 0)
+            philo->info->num_of_philo_full++;
+        // pthread_mutex_unlock(philo->rfork); //moeten deze eerder?
+        // pthread_mutex_unlock(philo->lfork); //moeten deze eerder?
         philo->time_left -= (get_time(philo->info->start_time) - philo->last_eaten);
         printf("%d %d is sleeping\n", get_time(philo->info->start_time), (int)philo->ID);
         stupid_sleep(philo->info->time_to_sleep);

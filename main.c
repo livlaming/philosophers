@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/07 13:48:08 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/07 14:21:47 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,15 @@ int manage(t_philo *philo)
                 pthread_mutex_lock(philo->info->write);
                 printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
                 pthread_mutex_lock(philo->info->write);
-                pthread_mutex_unlock(&philo->manage);
+                // pthread_mutex_unlock(&philo->manage);
                 return (-1);
             }
             if (philo->info->num_of_philo_full == philo->info->num_of_philo)
             {
                 pthread_mutex_lock(philo->info->write);
                 printf("All philosophers are full\n");
-                pthread_mutex_lock(philo->info->write);
-                // printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
-                pthread_mutex_unlock(&philo->manage);
+                pthread_mutex_unlock(philo->info->write);
+                // pthread_mutex_unlock(&philo->manage);
                 return (-1);
             }
             ID++;
@@ -167,7 +166,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
         // printf("Thread %d has started\n", i); //
         i++;
     }
-    // if (pthread_create(&thread[i], NULL, &manage, philo) != 0)
+    // if (pthread_create(&manager, NULL, &manage, philo) != 0)
     //         return(error_message(info, philo, 2));
     if (manage(philo) == -1)
         exit(0);
