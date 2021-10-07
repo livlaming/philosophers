@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/07 11:41:21 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/07 13:48:08 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,7 @@
 #include <pthread.h>
 #include <stdio.h>
 
-// number_of_philosophers 
-// time_to_die 
-// time_to_eat 
-// time_to_sleep 
-// [number_of_times_each_philosopher_must_eat]
+// number_of_philosophers, time_to_die, time_to_eat, time_to_sleep, [number_of_times_each_philosopher_must_eat]
 
 
 
@@ -69,7 +65,7 @@ int     join_thread(void *ID, t_info *info, pthread_t *thread)
     return (0);
 }
 
-void manage(t_philo *philo)
+int manage(t_philo *philo)
 {
     int ID;
 
@@ -83,16 +79,20 @@ void manage(t_philo *philo)
             if (philo[ID].time_left <= 0 && philo[ID].state == ALIVE)
             {
                 philo[ID].state = DEAD;
+                pthread_mutex_lock(philo->info->write);
                 printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
+                pthread_mutex_lock(philo->info->write);
                 pthread_mutex_unlock(&philo->manage);
-                return;
+                return (-1);
             }
             if (philo->info->num_of_philo_full == philo->info->num_of_philo)
             {
-                printf("All philosophers are full");
+                pthread_mutex_lock(philo->info->write);
+                printf("All philosophers are full\n");
+                pthread_mutex_lock(philo->info->write);
                 // printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
                 pthread_mutex_unlock(&philo->manage);
-                return;
+                return (-1);
             }
             ID++;
         }
@@ -101,13 +101,56 @@ void manage(t_philo *philo)
     pthread_mutex_unlock(&philo->manage);
 }
 
+
+// void* manage(void *arg)
+// {
+//     t_philo *philo;
+//     int ID;
+
+//     philo = arg;
+    
+//     ID = 0;
+//     pthread_mutex_lock(&philo->manage);
+//     while(1)
+//     {
+//         while (ID < philo->info->num_of_philo)
+//         {
+//             get_time(philo[ID].time_left);
+//             if (philo[ID].time_left <= 0 && philo[ID].state == ALIVE)
+//             {
+//                 philo[ID].state = DEAD;
+//                 pthread_mutex_lock(philo->info->write);
+//                 printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
+//                 pthread_mutex_unlock(philo->info->write);
+//                 pthread_mutex_unlock(&philo->manage);
+//                 return (philo);
+//             }
+//             if (philo->info->num_of_philo_full == philo->info->num_of_philo)
+//             {
+//                 pthread_mutex_lock(philo->info->write);
+//                 printf("All philosophers are full\n");
+//                 pthread_mutex_unlock(philo->info->write);
+//                 // printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
+//                 // pthread_mutex_unlock(&philo->manage);
+//                 return (philo);
+//             }
+//             ID++;
+//         }
+//         ID = 0;
+//     }
+//     pthread_mutex_unlock(&philo->manage);
+//     return (philo);
+// }
+
 int create_threads(t_info *info, t_philo *philo, int i)
 {
     pthread_t *thread;
+    pthread_t manager;
     void *ID;
     
     ID = NULL;
     thread = malloc(sizeof(pthread_t) * info->num_of_philo);
+    manager = malloc(sizeof(pthread_t));
     // pthread_mutex_init(&mutex, NULL);
     while (i < info->num_of_philo)
     {
@@ -124,7 +167,10 @@ int create_threads(t_info *info, t_philo *philo, int i)
         // printf("Thread %d has started\n", i); //
         i++;
     }
-    manage(philo);
+    // if (pthread_create(&thread[i], NULL, &manage, philo) != 0)
+    //         return(error_message(info, philo, 2));
+    if (manage(philo) == -1)
+        exit(0);
     i = join_thread(ID, info, thread);
     if (i != 0)
         return (i);
