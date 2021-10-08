@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/07 14:02:12 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/08 15:03:34 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct		s_info
 	pthread_mutex_t *write;
 	int				start_time;
 	int				num_of_philo_full;
+	int				dead;
 }					t_info;
 
 typedef struct		s_philo
