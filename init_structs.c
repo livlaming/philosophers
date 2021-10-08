@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/08 15:03:58 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/08 16:12:37 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int init_info_struct(t_info *info, char **argv, int argc)
     int i;
     
     i = 0;
-    info->dead = 0;
     info->num_of_philo = ft_atoi(argv[1]);
     info->num_of_forks = info->num_of_philo;
     info->time_to_die = ft_atoi(argv[2]);
