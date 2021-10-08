@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/13 10:22:41 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/08 16:10:11 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/08 16:16:32 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,5 @@ void* routine_left_right(void *arg)
         printf("%d %d is thinking\n", get_time(philo->info->start_time), (int)philo->ID);
         philo->time_left -= (get_time(philo->info->start_time) - philo->last_eaten);
     }
-    if (philo->time_left <= 0)
-        philo->info->dead = 1;
     return((void*)philo->ID);
 }
