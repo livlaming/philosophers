@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 11:52:10 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 12:56:44 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,14 @@ static int error_message(t_info *info, t_philo *philo, int error)
     return (-1);
 }
 
-static int     join_thread(void *ID, t_info *info, pthread_t *thread)
+static int     join_thread(t_info *info, pthread_t *thread)
 {
+    void *ID;
     int i;
     
     i = 0;
+    ID = NULL;
+    // ID = malloc(sizeof(pthread_t) * info->num_of_philo);
     while (i < info->num_of_philo)
     {
         if (pthread_join(thread[i], &ID) != 0)
@@ -53,31 +56,33 @@ static int     join_thread(void *ID, t_info *info, pthread_t *thread)
 static int create_threads(t_info *info, t_philo *philo, int i)
 {
     pthread_t *thread;
-    void *ID;
-    // int return_val = 0;
     
-    ID = NULL;
     thread = malloc(sizeof(pthread_t) * info->num_of_philo);
+    philo = NULL;
     while (i < info->num_of_philo)
     {
-        if (i & 1) //odd
+        if (i & 1) //even
         {
+            printf("even");
             if (pthread_create(&thread[i], NULL, &routine_right_left, &philo[i]) != 0)
                 return(error_message(info, philo, 2));
         }
-        else //even
+        else //oneven
         {
+            printf("oneven");
             if (pthread_create(&thread[i], NULL, &routine_left_right, &philo[i]) != 0)
                 return(error_message(info, philo, 2));
         }
-        // printf("Thread %d has started\n", i); //
+        printf("Thread %d has started\n", i); //
         i++;
     }
-    i = join_thread(ID, info, thread);
+    if (join_thread(info, thread) != 0)
+        return (-1);
+    // if (ID != NULL)
+    //     return(-1);
     // FREE MUTEX
     // pthread_mutex_destroy(&mutex);
-    if (i != 0)
-        return (i);
+    
         // pthread_exit() ?
     return (0);
 }
@@ -116,7 +121,7 @@ int main(int argc, char **argv)
         return(error_message(info, philo, 1));
     if (create_threads(info, philo, 0) == -1)
         return (-1);  
-    free(philo); // uitgebreider!
-    free(info); //uitgebreider!
+    // free(philo); // uitgebreider!
+    // free(info); //uitgebreider!
     return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/11 09:48:33 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 11:28:51 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 12:27:43 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void* manage(void *arg)
+void    *manage(void *arg)
 {
     t_philo *philo;
 
@@ -22,6 +22,7 @@ void* manage(void *arg)
     while(1)
     {
         philo->time_left -= (get_time(philo->info->start_time) - philo->last_eaten);
+        printf("time left %d\n", philo->time_left);
         if (philo->time_left <= 0 && philo->state == ALIVE)
         {
             philo->state = DEAD;

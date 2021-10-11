@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 11:53:34 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 12:04:32 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct		s_philo
 int     		print_cur_info_struct(t_info *info); //
 int     		print_cur_philo_struct(t_philo *philo); //
 int				ft_atoi(const char *str);
+uint64_t		ft_atou(const char *str);
 int				init_philo_struct(t_info *info, t_philo *philo);
 int				init_info_struct(t_info *info, char **argv, int argc);
 int     		get_time(int start_time);
@@ -66,6 +67,6 @@ void*			routine_left_right(void *arg);
 void*			routine_right_left(void *arg);
 void*			manage(void *arg);
 void			write_state(char *str, t_philo *philo, size_t ID);
-// void   			eating(t_philo *philo);
+void   			eating(t_philo *philo);
 
 #endif
