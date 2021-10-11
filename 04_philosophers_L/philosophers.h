@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/07 14:02:12 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 13:30:56 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 // time_to_sleep
 // [number_of_times_each_philosopher_must_eat]
 
-
+// ALGEMEEN
 typedef struct		s_info
 {
 	int				num_of_philo;
@@ -36,11 +36,12 @@ typedef struct		s_info
     int             num_of_forks;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t *eat;
-	pthread_mutex_t *write;
+	pthread_mutex_t *write;	
 	int				start_time;
 	int				num_of_philo_full;
 }					t_info;
 
+//PER PHILOSOPHER 
 typedef struct		s_philo
 {
 	long				ID;
@@ -64,5 +65,7 @@ unsigned long	get_time_useconds(void);
 void			stupid_sleep(unsigned long ms);
 void*			routine_left_right(void *arg);
 void*			routine_right_left(void *arg);
+void    		write_state(char *str, t_philo *philo, long ID);
+void    		*manage(void *arg);
 
 #endif
