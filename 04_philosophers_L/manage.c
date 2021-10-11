@@ -6,13 +6,12 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/11 13:30:14 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 14:37:00 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 14:45:10 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 void    *manage(void *arg)
 {

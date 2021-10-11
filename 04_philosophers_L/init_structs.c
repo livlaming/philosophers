@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 14:06:32 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 14:45:46 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int init_philo_struct(t_info *info, t_philo *philo)
     }
     return (0);
 }
-#include <stdio.h>
 
 int init_info_struct(t_info *info, char **argv, int argc)
 {
@@ -66,3 +65,6 @@ int init_info_struct(t_info *info, char **argv, int argc)
     info->num_of_philo_full = 0;
     return(0);
 }
+
+
+// void    destroy_mutex()//
