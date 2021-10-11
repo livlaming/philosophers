@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/14 15:39:43 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 09:27:30 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int init_philo_struct(t_info *info, t_philo *philo)
         // print_cur_philo_struct(&philo[ID]);
         ID++;
     }
+    philo->write = malloc(sizeof(pthread_mutex_t));
+        pthread_mutex_init(philo->write, NULL);
     return (0);
 }
 
@@ -60,8 +62,6 @@ int init_info_struct(t_info *info, char **argv, int argc)
 	info->start_time = get_time(0);
     info->eat = malloc(sizeof(pthread_mutex_t));
         pthread_mutex_init(info->eat, NULL);
-    info->write = malloc(sizeof(pthread_mutex_t));
-        pthread_mutex_init(info->write, NULL);
     info->num_of_philo_full = 0;
     return(0);
 }

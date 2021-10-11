@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/08 14:12:52 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 09:43:33 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,60 +43,60 @@ int     join_thread(void *ID, t_info *info, pthread_t *thread)
     {
         if (pthread_join(thread[i], &ID) != 0)
             return (2);
-        if ((int)&ID != 0)
+        if ((size_t)&ID != 0)
             return(-1);
         i++;
     }
     return (0);
 }
 
-void* manage(void *arg)
-{
-    t_philo *philo;
-    int ID;
+// void* manage(void *arg)
+// {
+//     t_philo *philo;
+//     int ID;
 
-    philo = arg;
-    ID = 0;
-    // pthread_mutex_lock(&philo->manage);
-    while(1)
-    {
-        while (ID < philo->info->num_of_philo)
-        {
-            get_time(philo[ID].time_left);
-            if (philo[ID].time_left <= 0 && philo[ID].state == ALIVE)
-            {
-                philo[ID].state = DEAD;
-                pthread_mutex_lock(philo->info->write);
-                printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
-                pthread_mutex_unlock(philo->info->write);
-                // pthread_mutex_unlock(&philo->manage);
-                return (philo);
-            }
-            if (philo->info->num_of_philo_full == philo->info->num_of_philo)
-            {
-                pthread_mutex_lock(philo->info->write);
-                printf("All philosophers are full\n");
-                pthread_mutex_unlock(philo->info->write);
-                // pthread_mutex_unlock(&philo->manage);
-                return (philo);
-            }
-            ID++;
-        }
-        ID = 0;
-    }
-    // pthread_mutex_unlock(&philo->manage);
-    return (philo);
-}
+//     philo = arg;
+//     ID = 0;
+//     // pthread_mutex_lock(&philo->manage);
+//     while(1)
+//     {
+//         while (ID < philo->info->num_of_philo)
+//         {
+//             get_time(philo[ID].time_left);
+//             if (philo[ID].time_left <= 0 && philo[ID].state == ALIVE)
+//             {
+//                 philo[ID].state = DEAD;
+//                 pthread_mutex_lock(philo->write);
+//                 printf("%d %d died\n", get_time(philo->info->start_time), (int)philo[ID].ID);
+//                 pthread_mutex_unlock(philo->write);
+//                 // pthread_mutex_unlock(&philo->manage);
+//                 return (philo);
+//             }
+//             if (philo->info->num_of_philo_full == philo->info->num_of_philo)
+//             {
+//                 pthread_mutex_lock(philo->write);
+//                 printf("All philosophers are full\n");
+//                 pthread_mutex_unlock(philo->write);
+//                 // pthread_mutex_unlock(&philo->manage);
+//                 return (philo);
+//             }
+//             ID++;
+//         }
+//         ID = 0;
+//     }
+//     // pthread_mutex_unlock(&philo->manage);
+//     return (philo);
+// }
 
 int create_threads(t_info *info, t_philo *philo, int i)
 {
     pthread_t *thread;
-    pthread_t *manager;
+    // pthread_t *manager;
     void *ID;
     
     ID = NULL;
     thread = malloc(sizeof(pthread_t) * info->num_of_philo);
-    manager = malloc(sizeof(pthread_t) * 1);
+    // manager = malloc(sizeof(pthread_t) * 1);
     while (i < info->num_of_philo)
     {
         if (i & 1) //odd
@@ -112,8 +112,6 @@ int create_threads(t_info *info, t_philo *philo, int i)
         // printf("Thread %d has started\n", i); //
         i++;
     }
-    if (pthread_create(manager, NULL, &manage, philo) != 0) // klopt het dat de manager ook een thread is of kan het ook een while loop zijn?
-        return(error_message(info, philo, 2));
     i = join_thread(ID, info, thread); //moet hier manager ook gejoint?
     if (i != 0)
         return (i);

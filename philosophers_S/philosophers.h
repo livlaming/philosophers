@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/07 14:02:12 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 09:29:36 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ typedef struct		s_info
 	int				num_of_meals;
     int             num_of_forks;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t *eat;
-	pthread_mutex_t *write;
+	pthread_mutex_t *eat; //
 	int				start_time;
 	int				num_of_philo_full;
 }					t_info;
@@ -46,6 +45,7 @@ typedef struct		s_philo
 	long				ID;
 	pthread_mutex_t *lfork;
 	pthread_mutex_t *rfork;
+	pthread_mutex_t *write;
 	int				meals_left;
 	int				time_left;
 	int				last_eaten;
