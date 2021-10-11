@@ -6,7 +6,7 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/10/11 13:31:10 by livlamin      ########   odam.nl          #
+#    Updated: 2021/10/11 14:29:51 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS = main.c \
 		routine_right_left.c \
 		write_state.c \
 		manage.c \
+		eating.c \
 		hulpfunctie.c 
 		# ft_itoa.c 
 		# ft_strdup.c

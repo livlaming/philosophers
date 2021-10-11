@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/09/14 15:39:43 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 14:06:32 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int init_philo_struct(t_info *info, t_philo *philo)
         else
 	        philo[ID].rfork = &info->forks[ID + 1];
 	    philo[ID].time_left = info->time_to_die;
-        philo[ID].last_eaten = 0;
+        philo[ID].last_eaten = info->time_to_die;
 	    philo[ID].state = ALIVE;
         philo[ID].meals_left = info->num_of_meals;
 	    philo[ID].info = info;
@@ -36,6 +36,7 @@ int init_philo_struct(t_info *info, t_philo *philo)
     }
     return (0);
 }
+#include <stdio.h>
 
 int init_info_struct(t_info *info, char **argv, int argc)
 {

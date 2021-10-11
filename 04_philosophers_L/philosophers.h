@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 13:30:56 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 14:29:41 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ void*			routine_left_right(void *arg);
 void*			routine_right_left(void *arg);
 void    		write_state(char *str, t_philo *philo, long ID);
 void    		*manage(void *arg);
+void   			eating(t_philo *philo);
 
 #endif

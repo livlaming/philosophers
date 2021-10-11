@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 13:35:38 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 13:52:44 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int     join_thread(void *ID, t_info *info, pthread_t *thread)
     {
         if (pthread_join(thread[i], &ID) != 0)
             return (2);
-        if ((int)&ID != 0)
+        if ((size_t)&ID != 0)
             return(-1);
         i++;
     }
