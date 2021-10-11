@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 10:52:24 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 11:52:10 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 // ./philo_one number_of_philosophers, time_to_die, time_to_eat, time_to_sleep, [number_of_times_each_philosopher_must_eat]
 
-int error_message(t_info *info, t_philo *philo, int error)
+static int error_message(t_info *info, t_philo *philo, int error)
 {
     if (error == 1)
         write(1, "Invalid input\n", 14);
@@ -34,7 +34,7 @@ int error_message(t_info *info, t_philo *philo, int error)
     return (-1);
 }
 
-int     join_thread(void *ID, t_info *info, pthread_t *thread)
+static int     join_thread(void *ID, t_info *info, pthread_t *thread)
 {
     int i;
     
@@ -50,7 +50,7 @@ int     join_thread(void *ID, t_info *info, pthread_t *thread)
     return (0);
 }
 
-int create_threads(t_info *info, t_philo *philo, int i)
+static int create_threads(t_info *info, t_philo *philo, int i)
 {
     pthread_t *thread;
     void *ID;
@@ -82,7 +82,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
     return (0);
 }
 
-int check_input(int argc, char **argv)
+static int check_input(int argc, char **argv)
 {
     int i;
 
