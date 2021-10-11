@@ -6,7 +6,7 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/10/11 09:19:40 by livlamin      ########   odam.nl          #
+#    Updated: 2021/10/11 09:49:28 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,9 @@ SRCS = main.c \
 		time.c \
 		routine_left_right.c \
 		routine_right_left.c \
+		manage.c \
 		hulpfunctie.c 
-		# ft_itoa.c 
-		# ft_strdup.c
-		# ft_atoi.c
+		# VERWIJDER HUPFUNCTIES
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pthread
 # INC = philosophers.h

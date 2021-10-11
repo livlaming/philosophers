@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 09:29:36 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/11 09:52:03 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ unsigned long	get_time_useconds(void);
 void			stupid_sleep(unsigned long ms);
 void*			routine_left_right(void *arg);
 void*			routine_right_left(void *arg);
+void*			manage(void *arg);
 
 #endif
