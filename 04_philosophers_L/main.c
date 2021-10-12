@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 14:43:43 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/12 09:57:34 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
         i++;
     }
     i = join_thread(ID, info, thread); //moet hier manager ook gejoint?
+    printf("%d\n", philo->state);
     if (i != 0)
         return (i);
     // pthread_mutex_destroy(&mutex);
