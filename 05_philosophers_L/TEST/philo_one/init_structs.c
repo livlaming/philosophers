@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/15 18:31:43 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 19:13:23 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int init_philo_struct(t_info *info, t_philo *philo)
         philo[ID].meals_left = info->num_of_meals;
 	    philo[ID].info = info;
         // philo[ID].start_time = get_time(0);
-        // print_cur_philo_struct(&philo[ID]);
+        print_cur_philo_struct(&philo[ID]);
         ID++;
     }
     return (0);
@@ -59,6 +59,7 @@ int init_info_struct(t_info *info, char **argv, int argc)
         i++;
     }
 	info->start_time = get_time_seconds();
+    // info->start_time = get_time(0);
     // printf("START TIME: %ld\n", info->start_time);
     info->eat = malloc(sizeof(pthread_mutex_t));
         pthread_mutex_init(info->eat, NULL);
@@ -66,6 +67,7 @@ int init_info_struct(t_info *info, char **argv, int argc)
         pthread_mutex_init(info->write, NULL);
     info->num_of_philo_full = 0;
     info->state = ALIVE;
+    print_cur_info_struct(info);
     return(0);
 }
 

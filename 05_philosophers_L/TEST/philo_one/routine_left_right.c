@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/13 10:22:41 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/15 18:33:17 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 19:36:56 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ void* routine_left_right(void *arg)
     
     philo = arg;
     manager = NULL;
+    // philo->last_eaten = get_time_seconds();
     if (pthread_create(&manager, NULL, &manage, philo) != 0) // klopt het dat de manager ook een thread is of kan het ook een while loop zijn?
         return ((void*)philo->ID); //
-    philo->last_eaten = get_time_seconds();
+    
     while (philo->time_left > 0 && philo->info->state == ALIVE)
     {
         pthread_mutex_lock(philo->lfork);
@@ -39,7 +40,6 @@ void* routine_left_right(void *arg)
         eating(philo);
         pthread_mutex_unlock(philo->lfork); //moeten deze eerder?
         pthread_mutex_unlock(philo->rfork); //moeten deze eerder?
-        
         write_state("is sleeping", philo, philo->ID);
         stupid_sleep(philo->info->time_to_sleep);
         write_state("is thinking", philo, philo->ID);
