@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/11 13:30:14 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/15 19:37:10 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 19:40:35 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ void    *manage(void *arg)
     
 
     philo = arg;
-    // long difference = get_time_seconds();
-    // philo->last_eaten = get_time_seconds();
-    while(philo->time_left > 0 && philo->info->state == 1)
+    long difference = 0;
+    philo->last_eaten = get_time_seconds();
+    while(philo->time_left > difference && philo->info->state == 1)
     {
-        // if (difference < (get_time_seconds() - philo->last_eaten))
-        // {
-        //     difference = (get_time_seconds() - philo->last_eaten);
-        //     philo->time_left -= difference;
-        // }
-        philo->time_left -= (get_time(philo->info->start_time) - philo->last_eaten);
-        if (philo->time_left <= 0 && philo->info->state == 1)
+
+        difference = (get_time_seconds() - philo->last_eaten);
+        // philo->time_left -= (get_time(philo->info->start_time) - philo->last_eaten);
+        if (philo->time_left <= difference && philo->info->state == 1)
         {
             philo->info->state = 0;
             philo->time_left = 0;
