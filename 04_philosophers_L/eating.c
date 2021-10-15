@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/11 14:29:03 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/12 10:18:33 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 15:24:56 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void   eating(t_philo *philo)
 {
-    if (philo->state == ALIVE)
+    if (philo->info->state == ALIVE)
     {
         pthread_mutex_lock(philo->info->eat);
         write_state("is eating", philo, philo->ID);

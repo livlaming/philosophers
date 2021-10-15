@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/11 13:30:14 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/12 09:55:52 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 15:26:30 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void    *manage(void *arg)
     t_philo *philo;
 
     philo = arg;
-    while(philo->time_left > 0 && philo->state == 1)
+    while(philo->time_left > 0 && philo->info->state == 1)
     {
         philo->time_left -= (get_time(philo->info->start_time) - philo->last_eaten);
-        if (philo->time_left <= 0 && philo->state == 1)
+        if (philo->time_left <= 0 && philo->info->state == 1)
         {
-            philo->state = 0;
+            philo->info->state = 0;
             philo->time_left = 0;
             pthread_mutex_lock(philo->info->write);
             printf("%d %zu died\n", get_time(philo->info->start_time), philo->ID);
@@ -39,7 +39,6 @@ void    *manage(void *arg)
             pthread_mutex_unlock(philo->info->write);
             return ((void*)NULL);
         }
-        philo->time_left -= (get_time(philo->info->start_time) - philo->last_eaten);
     }
     // return (philo);
     return (NULL);

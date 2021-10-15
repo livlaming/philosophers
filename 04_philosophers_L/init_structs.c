@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/11 14:45:46 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 15:21:14 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int init_philo_struct(t_info *info, t_philo *philo)
 	        philo[ID].rfork = &info->forks[ID + 1];
 	    philo[ID].time_left = info->time_to_die;
         philo[ID].last_eaten = info->time_to_die;
-	    philo[ID].state = ALIVE;
+	    // philo[ID].state = ALIVE;
         philo[ID].meals_left = info->num_of_meals;
 	    philo[ID].info = info;
         // print_cur_philo_struct(&philo[ID]);
@@ -63,6 +63,7 @@ int init_info_struct(t_info *info, char **argv, int argc)
     info->write = malloc(sizeof(pthread_mutex_t));
         pthread_mutex_init(info->write, NULL);
     info->num_of_philo_full = 0;
+    info->state = ALIVE;
     return(0);
 }
 
