@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:47:44 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/08/24 17:49:51 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 18:31:07 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,26 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-int     get_time(int start_time)
+long     get_time(long start_time)
 {
     struct timeval  tv;
-    int time_in_mill;
+    long time_in_mill;
 
     time_in_mill = 0;
     gettimeofday(&tv, NULL);
     time_in_mill = (tv.tv_sec * 1000) + (tv.tv_usec / 1000); // sec to millisec
     return (time_in_mill - start_time);
+}
+
+long     get_time_seconds(void)
+{
+    struct timeval  tv;
+    long time_in_mill;
+
+    time_in_mill = 0;
+    gettimeofday(&tv, NULL);
+    time_in_mill = (tv.tv_sec * 1000) + (tv.tv_usec / 1000); // sec to millisec
+    return (time_in_mill);
 }
 
 unsigned long     get_time_useconds(void)

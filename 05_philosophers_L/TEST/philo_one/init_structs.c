@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/15 15:21:14 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/15 18:31:43 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,16 @@ int init_philo_struct(t_info *info, t_philo *philo)
         else
 	        philo[ID].rfork = &info->forks[ID + 1];
 	    philo[ID].time_left = info->time_to_die;
-        philo[ID].last_eaten = info->time_to_die;
-	    // philo[ID].state = ALIVE;
+        philo[ID].last_eaten = info->start_time;
         philo[ID].meals_left = info->num_of_meals;
 	    philo[ID].info = info;
+        // philo[ID].start_time = get_time(0);
         // print_cur_philo_struct(&philo[ID]);
         ID++;
     }
     return (0);
 }
+#include <stdio.h>
 
 int init_info_struct(t_info *info, char **argv, int argc)
 {
@@ -57,7 +58,8 @@ int init_info_struct(t_info *info, char **argv, int argc)
         pthread_mutex_init(&info->forks[i], NULL);
         i++;
     }
-	info->start_time = get_time(0);
+	info->start_time = get_time_seconds();
+    // printf("START TIME: %ld\n", info->start_time);
     info->eat = malloc(sizeof(pthread_mutex_t));
         pthread_mutex_init(info->eat, NULL);
     info->write = malloc(sizeof(pthread_mutex_t));
