@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/18 17:47:49 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/18 18:06:45 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,14 @@ int init_philo_struct(t_central *central, t_philo *philo)
             philo[ID].rfork = &central->forks[0];
         else
 	        philo[ID].rfork = &central->forks[ID + 1];
-	    philo[ID].time_left = central->time_to_die;
-        philo[ID].last_eaten = central->start_time;
-        philo[ID].meals_left = central->num_of_meals;
-	    philo[ID].central = central;
+        philo[ID].last_eaten = 
+        philo[ID].meals_left = 
+	    // philo[ID].central = central;
         // philo[ID].start_time = get_time(0);
-        print_cur_philo_struct(&philo[ID]);
         ID++;
     }
     return (0);
 }
-#include <stdio.h>
 
 int init_central_struct(t_central *central, char **argv, int argc)
 {
