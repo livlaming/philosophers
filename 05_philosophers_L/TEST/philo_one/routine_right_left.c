@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/09/13 10:24:38 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/15 19:36:52 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/18 17:01:31 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@ void* routine_right_left(void *arg)
 {
     t_philo *philo;
     pthread_t manager;
-    void *return_val = NULL;
     
     philo = arg;
     manager = NULL;
-    // philo->last_eaten = get_time_seconds();
+    philo->last_eaten = get_time_seconds();
     if (pthread_create(&manager, NULL, &manage, philo) != 0) // klopt het dat de manager ook een thread is of kan het ook een while loop zijn?
-        return ((void*)philo->ID); //
+        return(NULL);
     while (philo->time_left > 0 && philo->info->state == ALIVE)
     {
         pthread_mutex_lock(philo->rfork);
@@ -40,10 +39,7 @@ void* routine_right_left(void *arg)
         stupid_sleep(philo->info->time_to_sleep);
         write_state("is thinking", philo, philo->ID);
     }
-    // while (philo->info->state == ALIVE) // weet niet of dit helpt?
-    // {
-        if (pthread_join(manager, return_val) != 0 || return_val == (void*)NULL)
-            return ((void*)philo->ID);
-    // }
-    return((void*)philo->ID);
+        if (pthread_join(manager, NULL) != 0) // || return_val == (void*)NULL)
+            return (NULL);
+    return(NULL);
 }

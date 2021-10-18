@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/16 13:27:05 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/15 15:39:03 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/18 16:57:20 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int create_threads(t_info *info, t_philo *philo, int i)
         i++;
     }
     i = join_thread(ID, info, thread); //moet hier manager ook gejoint?
+    // i = join_thread(ID, info, thread); //moet hier manager ook gejoint?
     // printf("%d\n", philo->info->state);
     if (i != 0)
         return (i);

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/15 19:13:23 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/18 16:55:45 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ int init_info_struct(t_info *info, char **argv, int argc)
         pthread_mutex_init(info->eat, NULL);
     info->write = malloc(sizeof(pthread_mutex_t));
         pthread_mutex_init(info->write, NULL);
+    info->status = malloc(sizeof(pthread_mutex_t));
+        pthread_mutex_init(info->status, NULL);
     info->num_of_philo_full = 0;
-    info->state = ALIVE;
+    info->state = 1;
     print_cur_info_struct(info);
     return(0);
 }
