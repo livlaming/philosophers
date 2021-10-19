@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 13:00:43 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 13:23:42 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void    			write_state(char *str, t_philo *philo, long ID);
 void*				routine_odd_left_right(void *arg);
 void*				routine_even_right_left(void *arg);
 void				eating(t_philo *philo);
+void				*direct(void *arg);
 
 //REMOVE BELOW!
 int     print_cur_central_struct(t_central *central);
