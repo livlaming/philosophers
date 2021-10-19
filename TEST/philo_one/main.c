@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 10:50:25 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 15:38:38 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 16:10:29 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,17 @@ int     join_thread(t_central *central, pthread_t *thread)
     return (0);
 }
 
-#include <stdio.h>
+void    destroy_mutex(t_philo *philo)
+{
+    pthread_mutex_destroy(philo->lfork);
+    pthread_mutex_destroy(philo->rfork);
+    pthread_mutex_destroy(philo->central->forks);
+    pthread_mutex_destroy(philo->central->eat);
+    pthread_mutex_destroy(philo->central->write);
+    pthread_mutex_destroy(philo->central->status);
+}
+
+
 int create_threads(t_central *central, t_philo *philo, int i)
 {
     pthread_t *thread;
@@ -67,6 +77,7 @@ int create_threads(t_central *central, t_philo *philo, int i)
     }
     if (join_thread(central, thread) != 0)
         return(error_message(central, philo, 3));
+    destroy_mutex(philo);
     // pthread_mutex_destroy(&mutex);
     return (0);
 }

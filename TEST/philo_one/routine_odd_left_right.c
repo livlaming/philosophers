@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 15:34:34 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 15:56:23 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void* routine_odd_left_right(void *arg)
     philo = arg;
     director = NULL;
     if (pthread_create(&director, NULL, &direct, philo) != 0) // klopt het dat de manager ook een thread is of kan het ook een while loop zijn?
-        return (NULL); //
+        return ((void*)NULL); //
     philo->last_eaten = get_time_mseconds();
     while ((get_time_mseconds() - philo->last_eaten) < philo->central->time_to_die && philo->central->state == ALIVE)
     {
@@ -30,7 +30,7 @@ void* routine_odd_left_right(void *arg)
         {
             stupid_sleep(philo->central->time_to_die);
             pthread_mutex_unlock(philo->lfork);
-            return(NULL);
+            return((void*)NULL);
         }
         pthread_mutex_lock(philo->rfork);
         write_state("has taken a fork", philo, philo->ID);
@@ -42,6 +42,6 @@ void* routine_odd_left_right(void *arg)
         write_state("is thinking", philo, philo->ID);
     }
     if (pthread_join(director, NULL) != 0)
-        return (NULL);
-    return(NULL);
+        return ((void*)NULL);
+    return((void*)NULL);
 }
