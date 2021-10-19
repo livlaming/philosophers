@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 15:48:35 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 15:55:41 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void    *direct(void *arg)
     // while(philo->central->state == 1 && philo->central->num_of_philo_full != philo->central->num_of_philo)
     while(1)
     {
-        // pthread_mutex_lock(philo->central->status);
         pthread_mutex_lock(philo->central->eat);
         if ((get_time_mseconds() - philo->last_eaten) > philo->central->time_to_die && philo->central->state == 1)
         {
@@ -53,7 +52,6 @@ void    *direct(void *arg)
             return (NULL);
         }
         pthread_mutex_unlock(philo->central->eat);
-        // pthread_mutex_lock(philo->central->status);
         if (philo->central->num_of_philo_full == philo->central->num_of_philo && philo->central->state == 1)
         {
             philo->central->state = 0;
