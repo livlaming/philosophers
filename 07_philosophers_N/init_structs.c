@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/18 18:06:45 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 11:57:25 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ int init_philo_struct(t_central *central, t_philo *philo)
             philo[ID].rfork = &central->forks[0];
         else
 	        philo[ID].rfork = &central->forks[ID + 1];
-        philo[ID].last_eaten = 
-        philo[ID].meals_left = 
-	    // philo[ID].central = central;
+        philo[ID].last_eaten = central->start_time;
+        philo[ID].meals_left = central->num_of_meals;
+	    philo[ID].central = central;
         // philo[ID].start_time = get_time(0);
+        print_cur_philo_struct(&philo[ID]);
         ID++;
     }
     return (0);
@@ -41,10 +42,12 @@ int init_central_struct(t_central *central, char **argv, int argc)
     
     i = 0;
     central->num_of_philo = ft_atoi(argv[1]);
+    if (central->num_of_philo == 0)
+        return(error_message(central, NULL, 1));
     central->num_of_forks = central->num_of_philo;
-    central->time_to_die = ft_atoi(argv[2]);
-	central->time_to_eat = ft_atoi(argv[3]);
-	central->time_to_sleep = ft_atoi(argv[4]);
+    central->time_to_die = ft_atoull(argv[2]);
+	central->time_to_eat = ft_atoull(argv[3]);
+	central->time_to_sleep = ft_atoull(argv[4]);
     if (argc == 6)
         central->num_of_meals = ft_atoi(argv[5]);
     else
@@ -56,8 +59,6 @@ int init_central_struct(t_central *central, char **argv, int argc)
         i++;
     }
 	central->start_time = get_time_seconds();
-    // central->start_time = get_time(0);
-    // printf("START TIME: %ld\n", central->start_time);
     central->eat = malloc(sizeof(pthread_mutex_t));
         pthread_mutex_init(central->eat, NULL);
     central->write = malloc(sizeof(pthread_mutex_t));
@@ -69,6 +70,18 @@ int init_central_struct(t_central *central, char **argv, int argc)
     print_cur_central_struct(central);
     return(0);
 }
+
+// int     destroy_structs()
+// {
+//     int i;
+
+//     i = 0;
+//     while(i < central->num_of_forks)
+//     {
+//         destroy_mutex(&central->forks[i], NULL);
+//         i++;
+//     }
+// }
 
 
 // void    destroy_mutex()//
