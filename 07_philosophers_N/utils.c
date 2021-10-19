@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 13:14:16 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 13:51:45 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,31 +44,6 @@ unsigned long long  ft_atoull(const char *str)
 	result = 0;
 	while ((*str >= 9 && *str <= 13) || *str == 32)
 		str++;
-	if (*str == '-')
-		sign = sign * -1;
-	if (*str == '+' || *str == '-')
-		str++;
-	while (*str >= '0' && *str <= '9')
-	{
-		if (result * 10 + *str - 48 > 9223372036854775807U && sign == 1)
-			return (-1);
-		if (result * 10 + *str - 48 > 9223372036854775808U)
-			return (0);
-		result = result * 10 + *str - 48;
-		str++;
-	}
-    return ((unsigned long long)result * sign);
-}
-
-int	ft_atoi(const char *str)
-{
-	unsigned long long	result;
-	long				sign;
-
-	sign = 1;
-	result = 0;
-	while ((*str >= 9 && *str <= 13) || *str == 32)
-		str++;
 	// if (*str == '-')
 	// 	sign = sign * -1;
 	// if (*str == '+' || *str == '-')
@@ -82,7 +57,32 @@ int	ft_atoi(const char *str)
 		result = result * 10 + *str - 48;
 		str++;
 	}
-	return ((int)result);// * sign);
+    return ((unsigned long long)result);// * sign);
+}
+
+int	ft_atoi(const char *str)
+{
+	unsigned long long	result;
+	long				sign;
+
+	sign = 1;
+	result = 0;
+	while ((*str >= 9 && *str <= 13) || *str == 32)
+		str++;
+	if (*str == '-')
+		sign = sign * -1;
+	if (*str == '+' || *str == '-')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		if (result * 10 + *str - 48 > 9223372036854775807U && sign == 1)
+			return (-1);
+		if (result * 10 + *str - 48 > 9223372036854775808U)
+			return (0);
+		result = result * 10 + *str - 48;
+		str++;
+	}
+	return ((int)result * sign);
 }
 
 void    write_state(char *str, t_philo *philo, long ID)
