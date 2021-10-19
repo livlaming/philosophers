@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 11:35:41 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 12:50:56 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,13 @@ int error_message(t_central *central, t_philo *philo, int error)
         perror("Failed to create thread");
         write(1, "Failed to create thread\n", 24);
     }
-    free(central); //uitgebreiden
-    free(philo); //uitgebreiden
+    if (error == 3)
+    {
+        perror("Failed to join thread");
+        write(1, "Failed to join thread\n", 24);
+    }
+    free(central); //uitbreiden
+    free(philo); //uitbreiden
     return (-1);
 }
 
@@ -78,4 +83,18 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return ((int)result * sign);
+}
+
+void    write_state(char *str, t_philo *philo, long ID)
+{
+    pthread_mutex_lock(philo->central->write);
+    if (philo->central->state == ALIVE)
+    {
+        if (!philo)
+            printf("%s\n", str);
+        else
+            printf("%lld %zu %s\n", get_time_mseconds() - philo->central->start_time, ID, str);
+        
+    }
+    pthread_mutex_unlock(philo->central->write);
 }

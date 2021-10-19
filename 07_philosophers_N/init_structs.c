@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 11:57:25 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 12:42:23 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int init_central_struct(t_central *central, char **argv, int argc)
         pthread_mutex_init(&central->forks[i], NULL);
         i++;
     }
-	central->start_time = get_time_seconds();
+	central->start_time = get_time_mseconds();
     central->eat = malloc(sizeof(pthread_mutex_t));
         pthread_mutex_init(central->eat, NULL);
     central->write = malloc(sizeof(pthread_mutex_t));

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 12:05:18 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/19 13:00:43 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,15 @@ typedef struct		s_philo
 int 				error_message(t_central *central, t_philo *philo, int error);
 int					ft_atoi(const char *str);
 unsigned long long  ft_atoull(const char *str);
-unsigned long long	get_time_seconds(void);
+unsigned long long	get_time_mseconds(void);
 int					init_central_struct(t_central *central, char **argv, int argc);
 int					init_philo_struct(t_central *central, t_philo *philo);
+void    			stupid_sleep(unsigned long long ms);
+void    			write_state(char *str, t_philo *philo, long ID);
+void*				routine_odd_left_right(void *arg);
+void*				routine_even_right_left(void *arg);
+void				eating(t_philo *philo);
+
 //REMOVE BELOW!
 int     print_cur_central_struct(t_central *central);
 int     print_cur_philo_struct(t_philo *philo);	
