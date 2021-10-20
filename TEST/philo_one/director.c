@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 16:13:41 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/20 12:28:23 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void    *direct(void *arg)
             printf("%lld %zu died\n", get_time_mseconds() - philo->central->start_time, philo->ID);
             pthread_mutex_unlock(philo->central->write);
             pthread_mutex_unlock(philo->central->eat);
-            pthread_mutex_unlock(philo->central->status);
             unlock_forks(philo);
             return ((void*)NULL);
         }

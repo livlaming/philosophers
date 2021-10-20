@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 15:56:23 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/20 12:27:44 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,10 @@ void* routine_odd_left_right(void *arg)
         stupid_sleep(philo->central->time_to_sleep);
         write_state("is thinking", philo, philo->ID);
     }
-    if (pthread_join(director, NULL) != 0)
-        return ((void*)NULL);
+    while ((get_time_mseconds() - philo->last_eaten) < philo->central->time_to_die && philo->central->state == ALIVE)
+    {
+        if (pthread_join(director, NULL) != 0)
+            return ((void*)NULL);
+    }
     return((void*)NULL);
 }
