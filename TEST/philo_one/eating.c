@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:52:55 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 16:05:50 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/21 09:21:15 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,17 @@ void   eating(t_philo *philo)
     if (philo->central->state == ALIVE)
     {
         write_state("is eating", philo, philo->ID);
-        pthread_mutex_unlock(philo->central->eat);
         philo->last_eaten = get_time_mseconds();
+        pthread_mutex_unlock(philo->central->eat);
         stupid_sleep(philo->central->time_to_eat);
         philo->meals_left--;
         if (philo->meals_left == 0)
             philo->central->num_of_philo_full++;
     }
-    pthread_mutex_unlock(philo->central->eat);
+    else
+    {
+        // pthread_mutex_unlock(philo->rfork); //moeten deze eerder?
+        // pthread_mutex_unlock(philo->lfork); //moeten deze eerder?
+        pthread_mutex_unlock(philo->central->eat);
+    }  
 }

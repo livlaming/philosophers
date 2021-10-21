@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/20 12:28:23 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/21 09:44:28 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static void    unlock_forks(t_philo *philo)
-{
-    int i;
+// static void    unlock_forks(t_philo *philo)
+// {
+//     int i;
 
-    i = 0;
-    while(i < philo->central->num_of_forks)
-    {
-        pthread_mutex_unlock(&philo->central->forks[i]);
-        pthread_mutex_destroy(&philo->central->forks[i]);
-        i++;
-    }
-}
+//     i = 0;
+//     while(i < philo->central->num_of_forks)
+//     {
+//         pthread_mutex_unlock(&philo->central->forks[i]);
+//         pthread_mutex_destroy(&philo->central->forks[i]);
+//         i++;
+//     }
+// }
 
 void    *direct(void *arg)
 {
@@ -43,11 +43,12 @@ void    *direct(void *arg)
         if ((get_time_mseconds() - philo->last_eaten) > philo->central->time_to_die && philo->central->state == 1)
         {
             philo->central->state = 0;
+            usleep(500);
             pthread_mutex_lock(philo->central->write);
             printf("%lld %zu died\n", get_time_mseconds() - philo->central->start_time, philo->ID);
             pthread_mutex_unlock(philo->central->write);
             pthread_mutex_unlock(philo->central->eat);
-            unlock_forks(philo);
+            // unlock_forks(philo);
             return ((void*)NULL);
         }
         pthread_mutex_unlock(philo->central->eat);
@@ -57,7 +58,7 @@ void    *direct(void *arg)
             pthread_mutex_lock(philo->central->write);
             printf("All philosophers are full\n");
             pthread_mutex_unlock(philo->central->write);
-            unlock_forks(philo);
+            // unlock_forks(philo);
             return ((void*)NULL);
         }
     }
