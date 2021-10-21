@@ -6,11 +6,12 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/21 09:32:56 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/21 11:09:41 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
+#include <stdio.h>
 
 void* routine_odd_left_right(void *arg) 
 {
@@ -29,6 +30,7 @@ void* routine_odd_left_right(void *arg)
         if (philo->central->num_of_philo == 1)
         {
             stupid_sleep(philo->central->time_to_die);
+            write_state("died", philo, philo->ID);
             pthread_mutex_unlock(philo->lfork);
             return((void*)NULL);
         }

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 15:43:22 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/21 10:59:10 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int init_philo_struct(t_central *central, t_philo *philo)
         philo[ID].last_eaten = central->start_time;
         philo[ID].meals_left = central->num_of_meals;
 	    philo[ID].central = central;
-        print_cur_philo_struct(&philo[ID]);
+        // print_cur_philo_struct(&philo[ID]);
         ID++;
     }
     return (0);
@@ -66,7 +66,7 @@ int init_central_struct(t_central *central, char **argv, int argc)
         pthread_mutex_init(central->status, NULL);
     central->num_of_philo_full = 0;
     central->state = 1;
-    print_cur_central_struct(central);
+    // print_cur_central_struct(central);
     return(0);
 }
 

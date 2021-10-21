@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 10:50:25 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/21 09:45:39 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/21 10:42:26 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void    destroy_mutex(t_philo *philo)
     pthread_mutex_destroy(philo->central->status);
 }
 
+#include <stdio.h>
 
 int create_threads(t_central *central, t_philo *philo, int i)
 {
@@ -116,7 +117,6 @@ int main(int argc, char **argv)
         return(error_message(central, philo, 1));
     if (create_threads(central, philo, 0) == -1)
         return (-1);
-    
     //free philo && central
     return (0);
 }
