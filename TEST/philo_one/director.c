@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/21 12:26:03 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/21 12:32:56 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// static void    unlock_forks(t_philo *philo)
-// {
-//     int i;
-
-//     i = 0;
-//     while(i < philo->central->num_of_forks)
-//     {
-//         pthread_mutex_unlock(&philo->central->forks[i]);
-//         pthread_mutex_destroy(&philo->central->forks[i]);
-//         i++;
-//     }
-// }
-
 void    *direct(void *arg)
 {
     t_philo *philo;
 
     philo = arg;
-    while(philo->central->state == ALIVE)
+    while (philo->central->state == ALIVE)
     {
         pthread_mutex_lock(philo->central->eat);
         if ((get_time_mseconds() - philo->last_eaten) > philo->central->time_to_die && philo->central->state == 1)
@@ -56,10 +43,8 @@ void    *direct(void *arg)
             pthread_mutex_lock(philo->central->write);
             printf("All philosophers are full\n");
             pthread_mutex_unlock(philo->central->write);
-            // unlock_forks(philo);
             return (NULL);
         }
     }
     return (NULL);
 }
-
