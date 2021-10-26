@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 12:26:12 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 13:37:50 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <stdlib.h>
 
 void	*philosophers_full(t_philo *philo)
-{
+{	
 	philo->central->state = 0;
 	pthread_mutex_lock(philo->central->write);
 	printf("All philosophers are full\n");
@@ -49,7 +49,7 @@ void	*direct(void *arg)
 			return (philosopher_died(philo));
 		pthread_mutex_unlock(philo->central->eat);
 		if (philo->central->num_of_philo_full
-			>= philo->central->num_of_philo && philo->central->state == 1)
+			== philo->central->num_of_philo && philo->central->state == 1)
 			return (philosophers_full(philo));
 	}
 	return (NULL);
