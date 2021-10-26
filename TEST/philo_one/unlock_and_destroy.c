@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:19:03 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 11:21:41 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 13:21:58 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 
 void	unlock_forks(t_philo *philo)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while(i < philo->central->num_of_forks)
-    {
-        pthread_mutex_unlock(&philo->central->forks[i]);
-        pthread_mutex_destroy(&philo->central->forks[i]);
-        i++;
-    }
+	i = 0;
+	while (i < philo->central->num_of_forks)
+	{
+		pthread_mutex_unlock(&philo->central->forks[i]);
+		pthread_mutex_destroy(&philo->central->forks[i]);
+		i++;
+	}
 }
 
-void    destroy_mutex(t_philo *philo)
+void	destroy_mutex(t_philo *philo)
 {
-    pthread_mutex_destroy(philo->central->eat);
-    pthread_mutex_destroy(philo->central->write);
-    pthread_mutex_destroy(philo->central->status);
+	pthread_mutex_destroy(philo->central->eat);
+	pthread_mutex_destroy(philo->central->write);
+	pthread_mutex_destroy(philo->central->status);
 	free(philo->central->eat);
 	free(philo->central->write);
 	free(philo->central->status);
@@ -40,7 +40,7 @@ void    destroy_mutex(t_philo *philo)
 void	unlock_and_destroy(t_philo *philo, t_central *central)
 {
 	unlock_forks(philo);
-	destroy_mutex(philo);	
+	destroy_mutex(philo);
 	free(philo);
 	free(central);
 }

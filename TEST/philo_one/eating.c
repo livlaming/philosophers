@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:52:55 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 12:27:06 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 13:05:27 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	eating(t_philo *philo)
 		philo->meals_left--;
 		if (philo->meals_left == 0)
 			philo->central->num_of_philo_full++;
+		pthread_mutex_unlock(philo->lfork);
+		pthread_mutex_unlock(philo->rfork);
 	}
 	else
 	{
