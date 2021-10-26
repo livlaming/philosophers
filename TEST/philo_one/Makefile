@@ -6,7 +6,7 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/10/21 10:53:01 by livlamin      ########   odam.nl          #
+#    Updated: 2021/10/26 11:20:09 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS = main.c \
 		routine_even_right_left.c \
 		eating.c \
 		director.c \
+		unlock_and_destroy.c \
 		hulpfunc_REMOVE.c
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pthread -g

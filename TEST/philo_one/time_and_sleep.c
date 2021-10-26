@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 11:18:20 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/19 12:42:33 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 10:51:31 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-unsigned long long     get_time_mseconds(void)
+uint64_t     get_time_mseconds(void)
 {
     struct timeval tv;
     unsigned long time_in_mill;
@@ -36,7 +36,7 @@ static unsigned long     get_time_useconds(void)
     return (time_in_useconds);
 }
 
-void    stupid_sleep(unsigned long long ms)
+void    stupid_sleep(uint64_t ms)
 {
     unsigned long    entry;
 

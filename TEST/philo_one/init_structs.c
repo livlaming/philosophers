@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/21 10:59:10 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 11:32:57 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int init_central_struct(t_central *central, char **argv, int argc)
     if (central->num_of_philo == 0)
         return(error_message(central, NULL, 1));
     central->num_of_forks = central->num_of_philo;
-    central->time_to_die = ft_atoull(argv[2]);
-	central->time_to_eat = ft_atoull(argv[3]);
-	central->time_to_sleep = ft_atoull(argv[4]);
+    central->time_to_die = ft_strtoull(argv[2]);
+	central->time_to_eat = ft_strtoull(argv[3]);
+	central->time_to_sleep = ft_strtoull(argv[4]);
     if (argc == 6)
         central->num_of_meals = ft_atoi(argv[5]);
     else
