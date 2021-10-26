@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/10/19 10:50:25 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 11:46:09 by livlamin      ########   odam.nl         */
+/*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
+/*   Updated: 2021/10/26 12:29:02 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	join_thread(t_central *central, pthread_t *thread)
 	return (0);
 }
 
-static int	create_threads(t_central *central, t_philo *philo, int i, pthread_t	*thread)
+static int	create_threads(t_central *central, t_philo *philo,
+	int i, pthread_t	*thread)
 {
 	pthread_t	*manager;
 
@@ -51,14 +52,14 @@ static int	create_threads(t_central *central, t_philo *philo, int i, pthread_t	*
 	{
 		if (i & 1) //even
 		{
-			if (pthread_create(&thread[i], NULL,	
-				&routine_even_right_left, &philo[i]) != 0)
+			if (pthread_create(&thread[i], NULL,
+					&routine_even_right_left, &philo[i]) != 0)
 				return (error_message(central, philo, 2));
 		}
 		else //odd
 		{
 			if (pthread_create(&thread[i], NULL,
-				&routine_odd_left_right, &philo[i]) != 0)
+					&routine_odd_left_right, &philo[i]) != 0)
 				return (error_message(central, philo, 2));
 		}
 		i++;
@@ -81,7 +82,7 @@ int	main(int argc, char **argv)
 		return (-1);
 	if ((argc != 5 && argc != 6) || check_input(argc, argv) == -1)
 		return (error_message(central, philo, 1));
-	if (init_central_struct(central, argv, argc) == -1)
+	if (init_central_struct(central, argv, argc, 0) == -1)
 		return (error_message(central, philo, 1));
 	philo = malloc(sizeof(t_philo) * central->num_of_philo);
 	if (!philo)

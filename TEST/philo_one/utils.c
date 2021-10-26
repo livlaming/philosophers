@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 11:30:54 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 11:54:17 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,9 @@ int error_message(t_central *central, t_philo *philo, int error)
         perror("Failed to join thread");
         write(1, "Failed to join thread\n", 24);
     }
-    free(central); //uitbreiden
-    free(philo); //uitbreiden
+    unlock_and_destroy(philo, central);
     return (-1);
 }
-
-// uint64_t  ft_strtoull(const char *str)
-// {
-//     uint64_t	result;
-// 	long			sign;
-
-// 	sign = 1;
-// 	result = 0;
-// 	while ((*str >= 9 && *str <= 13) || *str == 32)
-// 		str++;
-// 	// if (*str == '-')
-// 	// 	sign = sign * -1;
-// 	// if (*str == '+' || *str == '-')
-// 	// 	str++;
-// 	while (*str >= '0' && *str <= '9')
-// 	{
-// 		if (result * 10 + *str - 48 > 9223372036854775807U && sign == 1)
-// 			return (-1);
-// 		if (result * 10 + *str - 48 > 9223372036854775808U)
-// 			return (0);
-// 		result = result * 10 + *str - 48;
-// 		str++;
-// 	}
-//     return ((uint64_t)result);// * sign);
-// }
 
 int	ft_atoi(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 11:29:03 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 12:28:22 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int 				error_message(t_central *central, t_philo *philo, int error);
 int					ft_atoi(const char *str);
 uint64_t    		ft_strtoull(const char *str);
 uint64_t			get_time_mseconds(void);
-int					init_central_struct(t_central *central, char **argv, int argc);
+int					init_central_struct(t_central *central, char **argv, int argc, int i);
 int					init_philo_struct(t_central *central, t_philo *philo);
 void    			stupid_sleep(uint64_t ms);
 void    			write_state(char *str, t_philo *philo, long ID);
