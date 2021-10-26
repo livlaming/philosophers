@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 13:37:50 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 14:20:19 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	*philosophers_full(t_philo *philo)
 	pthread_mutex_lock(philo->central->write);
 	printf("All philosophers are full\n");
 	pthread_mutex_unlock(philo->central->write);
-	return (NULL);
+	return ((void *) NULL);
 }
 
 void	*philosopher_died(t_philo *philo)
@@ -33,7 +33,7 @@ void	*philosopher_died(t_philo *philo)
 		get_time_mseconds() - philo->central->start_time, philo->ID);
 	pthread_mutex_unlock(philo->central->write);
 	pthread_mutex_unlock(philo->central->eat);
-	return (NULL);
+	return ((void *) NULL);
 }
 
 void	*direct(void *arg)
@@ -52,5 +52,5 @@ void	*direct(void *arg)
 			== philo->central->num_of_philo && philo->central->state == 1)
 			return (philosophers_full(philo));
 	}
-	return (NULL);
+	return ((void *) NULL);
 }

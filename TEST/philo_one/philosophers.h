@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 12:58:09 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 14:05:48 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void				*direct(void *arg);
 void				unlock_and_destroy(t_philo *philo,
 						t_central *central);
 void				destroy_mutex(t_philo *philo);
-void				unlock_forks(t_philo *philo);	
+void				destroy_forks(t_philo *philo);	
 
 //REMOVE BELOW!
 int     			print_cur_central_struct(t_central *central);

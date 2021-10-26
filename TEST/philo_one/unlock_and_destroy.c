@@ -6,21 +6,21 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:19:03 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 13:21:58 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/26 14:05:15 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdlib.h>
 
-void	unlock_forks(t_philo *philo)
+void	destroy_forks(t_philo *philo)
 {
 	int	i;
 
 	i = 0;
 	while (i < philo->central->num_of_forks)
 	{
-		pthread_mutex_unlock(&philo->central->forks[i]);
+		// pthread_mutex_unlock(&philo->central->forks[i]);
 		pthread_mutex_destroy(&philo->central->forks[i]);
 		i++;
 	}
@@ -39,7 +39,7 @@ void	destroy_mutex(t_philo *philo)
 
 void	unlock_and_destroy(t_philo *philo, t_central *central)
 {
-	unlock_forks(philo);
+	destroy_forks(philo);
 	destroy_mutex(philo);
 	free(philo);
 	free(central);
