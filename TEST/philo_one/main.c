@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 14:11:05 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/27 12:07:24 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static int	join_thread(t_central *central, pthread_t *thread)
 	return (0);
 }
 
-#include <stdio.h>
-
 static int	create_threads(t_central *central, t_philo *philo,
 	int i, pthread_t	*thread)
 {
@@ -65,13 +63,16 @@ static int	create_threads(t_central *central, t_philo *philo,
 				return (error_message(central, philo, 2));
 		}
 		i++;
-		printf("tread = %d\n", i);
 	}
 	if (join_thread(central, thread) != 0)
+	{
+		free(thread);
+		free(manager);
 		return (error_message(central, philo, 3));
+	}
 	// unlock_and_destroy(philo, central);
-	// free(thread);
-	// free(manager);
+	free(thread);
+	free(manager);
 	return (0);
 }
 
@@ -95,7 +96,7 @@ int	main(int argc, char **argv)
 		return (error_message(central, philo, 1));
 	if (create_threads(central, philo, 0, NULL) == -1)
 		return (-1);
-	// unlock_and_destroy(philo, central);
+	unlock_and_destroy(philo, central);
 	// system("leaks philo_one");
 	return (0);
 }

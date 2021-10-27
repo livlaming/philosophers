@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:58:27 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 13:37:30 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/27 12:11:48 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@ void	*routine_even_right_left(void *arg)
 
 	philo = arg;
 	director = NULL;
+	
+	philo->last_eaten = get_time_mseconds();
 	if (pthread_create(&director, NULL, &direct, philo) != 0)
 		return ((void *) NULL); // error?
-	philo->last_eaten = get_time_mseconds();
 	while (philo->central->state == ALIVE)
 	{
 		pthread_mutex_lock(philo->rfork);
 		write_state("has taken a fork", philo, philo->ID);
 		pthread_mutex_lock(philo->lfork);
 		write_state("has taken a fork", philo, philo->ID);
-		eating(philo);
+		eating_right_left(philo);
 		write_state("is sleeping", philo, philo->ID);
 		stupid_sleep(philo->central->time_to_sleep);
 		write_state("is thinking", philo, philo->ID);

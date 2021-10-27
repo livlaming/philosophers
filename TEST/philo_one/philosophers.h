@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 14:05:48 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/27 12:12:31 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_central
 
 typedef struct s_philo
 {
-	long				ID;
+	int					ID;
 	pthread_mutex_t		*lfork;
 	pthread_mutex_t		*rfork;
 	int					meals_left;
@@ -81,7 +81,8 @@ void				stupid_sleep(uint64_t ms);
 void				write_state(char *str, t_philo *philo, long ID);
 void				*routine_odd_left_right(void *arg);
 void				*routine_even_right_left(void *arg);
-void				eating(t_philo *philo);
+void				eating_left_right(t_philo *philo);
+void				eating_right_left(t_philo *philo);
 void				*direct(void *arg);
 void				unlock_and_destroy(t_philo *philo,
 						t_central *central);
