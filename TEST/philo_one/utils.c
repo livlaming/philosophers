@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 13:56:40 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 14:05:12 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	ft_atoi(const char *str)
 void	write_state(char *str, t_philo *philo, long ID)
 {
 	pthread_mutex_lock(philo->central->write);
-	if (check_status(philo) == 1)
+	if (check_status(philo) == ALIVE)
 	{
 		if (!philo)
 			printf("%s\n", str);

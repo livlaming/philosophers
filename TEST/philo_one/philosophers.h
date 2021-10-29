@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 13:49:36 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 14:07:15 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_central
 	pthread_mutex_t		*eat;
 	pthread_mutex_t		*write;	
 	pthread_mutex_t		*status;
+	pthread_mutex_t		*full;
 	uint64_t			start_time;
 	int					state;
 	int					num_of_philo_full;

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/26 13:43:14 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 14:07:55 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,10 @@ static int	init_eat_write_status(t_central *central)
 	if (!central->status)
 		return (-1);
 	pthread_mutex_init(central->status, NULL);
+	central->full = malloc(sizeof(pthread_mutex_t));
+	if (!central->full)
+		return (-1);
+	pthread_mutex_init(central->full, NULL);
 	return (0);
 }
 
