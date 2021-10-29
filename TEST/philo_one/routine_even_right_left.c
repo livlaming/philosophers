@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:58:27 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/27 12:11:48 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 13:54:25 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	*routine_even_right_left(void *arg)
 	philo->last_eaten = get_time_mseconds();
 	if (pthread_create(&director, NULL, &direct, philo) != 0)
 		return ((void *) NULL); // error?
-	while (philo->central->state == ALIVE)
+	while (check_status(philo) == 1)
 	{
 		pthread_mutex_lock(philo->rfork);
 		write_state("has taken a fork", philo, philo->ID);
