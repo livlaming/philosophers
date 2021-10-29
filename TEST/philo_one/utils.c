@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 14:05:12 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 15:42:49 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,18 @@ int		check_status(t_philo *philo)
 		return (1);
 	}	
 	pthread_mutex_unlock(philo->central->status);
+	return(0);
+}
+
+int		check_full(t_philo *philo)
+{
+	pthread_mutex_lock(philo->central->full);
+	if (philo->central->num_of_philo_full
+			>= philo->central->num_of_philo)
+	{
+		pthread_mutex_unlock(philo->central->full);
+		return (1);
+	}	
+	pthread_mutex_unlock(philo->central->full);
 	return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 14:58:06 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 16:27:02 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ static int	create_threads(t_central *central, t_philo *philo,
 		if (i & 1) //even
 		{
 			if (pthread_create(&thread[i], NULL,
-					&routine_even_right_left, &philo[i]) != 0)
+					routine_even_right_left, &philo[i]) != 0)
 				return (error_message(central, philo, 2));
 		}
 		else //odd
 		{
 			if (pthread_create(&thread[i], NULL,
-					&routine_odd_left_right, &philo[i]) != 0)
+					routine_odd_left_right, &philo[i]) != 0)
 				return (error_message(central, philo, 2));
 		}
-		// usleep(2000);
+		// usleep(1000);
 		i++;
 	}
 	if (join_thread(central, thread) != 0)

@@ -6,7 +6,7 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/10/27 12:00:14 by livlamin      ########   odam.nl          #
+#    Updated: 2021/10/29 16:01:23 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS = main.c \
 		unlock_and_destroy.c \
 		hulpfunc_REMOVE.c
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -pthread 
+CFLAGS = -Wall -Werror -Wextra -pthread
 #-g
 # INC = philosophers.h
 
@@ -33,6 +33,9 @@ $(NAME): $(SRCS)
 
 san: $(SRCS)
 	$(CC) $(CFLAGS) -g -fsanitize=thread $(SRCS) -o $(NAME)
+
+debug: $(SRCS)
+	$(CC) $(CFLAGS) -g $(SRCS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJ)

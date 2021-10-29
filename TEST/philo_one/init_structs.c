@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 14:07:55 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 16:24:08 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ int	init_central_struct(t_central *central, char **argv, int argc, int i)
 	}
 	central->start_time = get_time_mseconds();
 	if (init_eat_write_status(central) == -1)
-		return (-1);
+		return (-1); //error
 	central->num_of_philo_full = 0;
-	central->state = 1;
+	central->state = ALIVE;
 	// print_cur_central_struct(central);
 	return (0);
 }
