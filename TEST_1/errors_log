@@ -1,2 +1,3 @@
 [philo_one-Test #3]: Given 4 800 200 200 arguments to philo_one, no philosopher should die !
-[philo_one-Test #4]: Given 4 410 200 200 10 arguments to philo_one, philo_one should stop !
+[philo_one-Test #3]: Given 4 800 200 200 arguments to philo_one, no philosopher should die !
+[philo_one-Test #3]: Given 4 800 200 200 arguments to philo_one, no philosopher should die !

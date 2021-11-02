@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:58:27 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 16:29:25 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/02 13:28:26 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,9 @@ void	*routine_even_right_left(void *arg)
 
 	philo = arg;
 	director = NULL;
+	pthread_mutex_lock(philo->central->eat);
 	philo->last_eaten = get_time_mseconds();
+	pthread_mutex_unlock(philo->central->eat);
 	if (pthread_create(&director, NULL, direct, philo) != 0)
 		return ((void *) NULL); // error?
 	while (check_status(philo) == ALIVE)
@@ -37,3 +39,6 @@ void	*routine_even_right_left(void *arg)
 		return ((void *) NULL); // error?
 	return ((void *) NULL);
 }
+
+// 162099 1 is eating
+// 81246 3 is eating

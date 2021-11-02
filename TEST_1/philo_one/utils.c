@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 15:42:49 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/02 10:45:38 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 int	error_message(t_central *central, t_philo *philo, int error)
 {
 	if (error == 1)
+	{
 		write(1, "Invalid input\n", 14);
+		free(central);
+		return(-1);
+	}
 	if (error == 2)
 	{
 		perror("Failed to create thread");
