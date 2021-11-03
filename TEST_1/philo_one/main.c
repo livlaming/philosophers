@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/02 10:51:25 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/03 12:55:50 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,10 @@ static int	join_thread(t_central *central, pthread_t *thread)
 #include <unistd.h>
 
 static int	create_threads(t_central *central, t_philo *philo,
-	int i, pthread_t	*thread)
+	int i, pthread_t *thread)
 {
-	pthread_t	*manager;
 
 	thread = malloc(sizeof(pthread_t) * central->num_of_philo);
-	manager = malloc(sizeof(pthread_t) * 1);
 	while (i < central->num_of_philo)
 	{
 		if (i & 1) //even
@@ -69,12 +67,10 @@ static int	create_threads(t_central *central, t_philo *philo,
 	if (join_thread(central, thread) != 0)
 	{
 		free(thread);
-		free(manager);
 		return (error_message(central, philo, 3));
 	}
 	// unlock_and_destroy(philo, central);
 	free(thread);
-	free(manager);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:58:27 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/02 13:28:26 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/03 12:48:34 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	*routine_even_right_left(void *arg)
 	}
 	if (pthread_join(director, NULL) != 0)
 		return ((void *) NULL); // error?
+	// free(director);
 	return ((void *) NULL);
 }
 
