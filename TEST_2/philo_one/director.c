@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/02 10:55:59 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/02 14:02:35 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*direct(void *arg)
 	t_philo	*philo;
 
 	philo = arg;
-	while (check_status(philo) == ALIVE && check_full(philo) == 0)
+	while (check_status(philo) == ALIVE)// && check_full(philo) == 0)
 	{
 		usleep(500);
 		pthread_mutex_lock(philo->central->eat);
@@ -57,5 +57,6 @@ void	*direct(void *arg)
 		if (check_full(philo) == 1 && check_status(philo) == ALIVE)
 			return (philosophers_full(philo));
 	}
+	
 	return ((void *) NULL);
 }

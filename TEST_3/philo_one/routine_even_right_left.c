@@ -6,16 +6,18 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:58:27 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/02 13:28:26 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/03 14:35:20 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 
+#include <stdio.h>
 void	*routine_even_right_left(void *arg)
 {
 	t_philo		*philo;
 	pthread_t	director;
+	int x = 1;
 
 	philo = arg;
 	director = NULL;
@@ -31,12 +33,15 @@ void	*routine_even_right_left(void *arg)
 		pthread_mutex_lock(philo->lfork);
 		write_state("has taken a fork", philo, philo->ID);
 		eating_right_left(philo);
+		printf("%d: %d time eating\n",  philo->ID, x);
 		write_state("is sleeping", philo, philo->ID);
 		stupid_sleep(philo->central->time_to_sleep);
 		write_state("is thinking", philo, philo->ID);
+		x++;
 	}
 	if (pthread_join(director, NULL) != 0)
 		return ((void *) NULL); // error?
+	// free(director);
 	return ((void *) NULL);
 }
 

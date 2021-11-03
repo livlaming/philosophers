@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/02 13:28:19 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/03 14:28:56 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*routine_odd_left_right(void *arg)
 {
 	t_philo		*philo;
 	pthread_t	director;
+	int x = 1;
 
 	philo = arg;
 	director = NULL;
@@ -45,11 +46,14 @@ void	*routine_odd_left_right(void *arg)
 		pthread_mutex_lock(philo->rfork);
 		write_state("has taken a fork", philo, philo->ID);
 		eating_left_right(philo);
+		printf("%d: %d time eating\n",  philo->ID, x);
 		write_state("is sleeping", philo, philo->ID);
 		stupid_sleep(philo->central->time_to_sleep);
 		write_state("is thinking", philo, philo->ID);
+		x++;
 	}
 	if (pthread_join(director, NULL) != 0)
 		return ((void *) NULL);// error?
+	// free(director);
 	return ((void *) NULL);
 }
