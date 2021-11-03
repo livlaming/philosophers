@@ -1,0 +1,109 @@
+philo_one
+Should fail: no error message on stderr
+
+philo_one a a a a
+Should fail: no error message on stderr
+
+philo_one aaaaaaaaaaaaaaaaaaaaaaaaaaaaa a a a
+Should fail: no error message on stderr
+
+philo_one 10
+Should fail: no error message on stderr
+
+philo_one 10 10
+Should fail: no error message on stderr
+
+philo_one 10 10 10
+Should fail: no error message on stderr
+
+philo_one 10 10 10 10 10 10
+Should fail: no error message on stderr
+
+philo_one -1 10 10 10
+Should fail: no error message on stderr
+
+philo_one 10 -1 10 10
+Should fail: no error message on stderr
+
+philo_one 10 10 -1 10
+Should fail: no error message on stderr
+
+philo_one 10 10 10 -1
+Should fail: no error message on stderr
+
+philo_one 10 10 10 10 -1
+Should fail: no error message on stderr
+
+philo_one 4294967296 10 10 10
+Should fail: no error message on stderr
+
+philo_one 10 4294967296 10 10
+Should fail: no error message
+
+philo_one 10 10 4294967296 10
+Should fail: no error message
+
+philo_one 10 10 10 4294967296
+Should fail: no error message
+
+philo_one 10 10 10 10 4294967296
+Should fail: non zero status code: 0
+
+philo_one -4294967295 10 10 10
+Should fail: no error message on stderr
+
+philo_one 10 -4294967295 10 10
+Should fail: no error message on stderr
+
+philo_one 10 10 -4294967295 10
+Should fail: no error message on stderr
+
+philo_one 10 10 10 -4294967295
+Should fail: no error message on stderr
+
+philo_one 10 10 10 10 -4294967295
+Should fail: no error message on stderr
+
+philo_one 0 120 60 60
+FORMAT ERROR: wrong format
+Invalid input
+
+
+philo_one 1 120 60 60
+FORMAT ERROR: wrong format
+central STRUCT!
+
+
+philo_one 2 120 60 60
+FORMAT ERROR: wrong format
+central STRUCT!
+
+
+philo_one 3 120 60 60
+FORMAT ERROR: wrong format
+central STRUCT!
+
+
+philo_one 4 120 60 60
+FORMAT ERROR: wrong format
+central STRUCT!
+
+
+philo_one 5 120 60 60
+FORMAT ERROR: wrong format
+central STRUCT!
+
+
+philo_one 6 120 60 60
+FORMAT ERROR: wrong format
+central STRUCT!
+
+
+philo_one 7 120 60 60
+FORMAT ERROR: wrong format
+central STRUCT!
+
+
+philo_one 4 310 200 100
+FORMAT ERROR: wrong format
+central STRUCT!

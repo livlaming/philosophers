@@ -1,0 +1,6 @@
+director = loop tot iedereen vol is, als na alle processen iedereen leeft kun je zeggen dat de philosophers vol zijn
+phio loop = state = alive en philo niet vol
+
+
+last eaten is dat als de tread begint of als het prgramma start?
+
