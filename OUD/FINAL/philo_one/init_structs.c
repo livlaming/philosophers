@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/03 15:00:02 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/10/29 16:24:08 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	init_eat_write_status(t_central *central)
 	central->full = malloc(sizeof(pthread_mutex_t));
 	if (!central->full)
 		return (-1);
-	// pthread_mutex_init(central->full, NULL);
+	pthread_mutex_init(central->full, NULL);
 	return (0);
 }
 
@@ -82,6 +82,6 @@ int	init_central_struct(t_central *central, char **argv, int argc, int i)
 		return (-1); //error
 	central->num_of_philo_full = 0;
 	central->state = ALIVE;
-	print_cur_central_struct(central);
+	// print_cur_central_struct(central);
 	return (0);
 }
