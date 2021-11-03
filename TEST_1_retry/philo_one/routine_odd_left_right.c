@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/03 12:48:29 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/03 13:26:22 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	*routine_odd_left_right(void *arg)
 
 	philo = arg;
 	director = NULL;
-	// director = malloc(sizeof(pthread_t));
 	pthread_mutex_lock(philo->central->eat);
 	philo->last_eaten = get_time_mseconds();
 	pthread_mutex_unlock(philo->central->eat);

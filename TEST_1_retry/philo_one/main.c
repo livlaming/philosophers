@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/03 12:55:50 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/03 13:30:50 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ static int	create_threads(t_central *central, t_philo *philo,
 					routine_odd_left_right, &philo[i]) != 0)
 				return (error_message(central, philo, 2));
 		}
-		// usleep(1000);
 		i++;
 	}
 	if (join_thread(central, thread) != 0)
@@ -70,9 +69,20 @@ static int	create_threads(t_central *central, t_philo *philo,
 		return (error_message(central, philo, 3));
 	}
 	// unlock_and_destroy(philo, central);
+	// usleep(1000);
 	free(thread);
 	return (0);
 }
+
+// if (create != 0) join alles ervoor
+
+// {
+// 	while (i > 0)
+// 	{
+// 		--i;
+// 		pthread_join(pt[i], NULL);
+// 	}
+// }
 
 int	main(int argc, char **argv)
 {
@@ -96,5 +106,6 @@ int	main(int argc, char **argv)
 		return (-1);
 	// unlock_and_destroy(philo, central);
 	// system("leaks philo_one");
+	pthread_exit(NULL);
 	return (0);
 }
