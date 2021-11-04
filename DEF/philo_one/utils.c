@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 12:41:23 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:24:48 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	error_message(t_central *central, t_philo *philo, int error)
 	{
 		write(1, "Invalid input\n", 14);
 		free(central);
-		return(-1);
+		return (-1);
 	}
 	if (error == 2)
 	{
@@ -67,11 +67,8 @@ void	write_state(char *str, t_philo *philo, long ID)
 	pthread_mutex_lock(philo->central->write);
 	if (check_status(philo) == ALIVE)
 	{
-		// if (!philo)
-		// 	printf("%s\n", str);
-		// else
-			printf("%lld %zu %s\n",
-				get_time_mseconds() - philo->central->start_time, ID, str);
+		printf("%lld %zu %s\n",
+			get_time_mseconds() - philo->central->start_time, ID, str);
 	}
 	pthread_mutex_unlock(philo->central->write);
 }
@@ -94,7 +91,7 @@ uint64_t	ft_strtoull(const char *str)
 	return (nbr);
 }
 
-int		check_status(t_philo *philo)
+int	check_status(t_philo *philo)
 {
 	pthread_mutex_lock(philo->central->status);
 	if (philo->central->state == ALIVE)
@@ -103,18 +100,5 @@ int		check_status(t_philo *philo)
 		return (1);
 	}	
 	pthread_mutex_unlock(philo->central->status);
-	return(0);
-}
-
-int		check_full(t_philo *philo)
-{
-	pthread_mutex_lock(philo->central->full);
-	if (philo->central->num_of_philo_full
-			>= philo->central->num_of_philo)
-	{
-		pthread_mutex_unlock(philo->central->full);
-		return (1);
-	}	
-	pthread_mutex_unlock(philo->central->full);
-	return(0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:19:03 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 16:10:06 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:21:45 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	destroy_forks(t_philo *philo)
 	i = 0;
 	while (i < philo->central->num_of_forks)
 	{
-		// pthread_mutex_unlock(&philo->central->forks[i]);
 		pthread_mutex_destroy(&philo->central->forks[i]);
 		i++;
 	}
