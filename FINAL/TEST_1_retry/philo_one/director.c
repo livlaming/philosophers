@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 13:14:35 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 14:08:59 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 14:22:43 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	*philosopher_died(t_philo *philo)
 	pthread_mutex_lock(philo->central->status);
 	philo->central->state = DEAD;
 	pthread_mutex_unlock(philo->central->status);
-	usleep(500);
+	// usleep(500);
 	pthread_mutex_lock(philo->central->write);
 	printf("%lld %d died\n",
 	get_time_mseconds() - philo->central->start_time, philo->ID);
