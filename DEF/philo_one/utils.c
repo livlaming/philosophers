@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 16:24:48 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:49:51 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,25 @@ int	error_message(t_central *central, t_philo *philo, int error)
 		return (-1);
 	}
 	if (error == 2)
-	{
-		perror("Failed to create thread");
 		write(1, "Failed to create thread\n", 24);
-	}
 	if (error == 3)
-	{
-		perror("Failed to join thread");
 		write(1, "Failed to join thread\n", 24);
-	}
-	unlock_and_destroy(philo, central);
+	if (error == 4)
+		write(1, "Malloc failed\n", 14);
+	if (error != 4)
+		unlock_and_destroy(philo, central);
+	else
+		free(central);
 	return (-1);
+}
+
+void	*error_message_2(int error)
+{
+	if (error == 1)
+		write(1, "Failed to create thread\n", 24);
+	if (error == 2)
+		write(1, "Failed to join thread\n", 24);
+	return ((void *) NULL);
 }
 
 int	ft_atoi(const char *str)
