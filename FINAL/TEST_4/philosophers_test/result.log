@@ -71,39 +71,39 @@ Invalid input
 
 philo_one 1 120 60 60
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
 
 
 philo_one 2 120 60 60
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
 
 
 philo_one 3 120 60 60
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
 
 
 philo_one 4 120 60 60
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
 
 
 philo_one 5 120 60 60
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
 
 
 philo_one 6 120 60 60
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
 
 
 philo_one 7 120 60 60
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
 
 
 philo_one 4 310 200 100
 FORMAT ERROR: wrong format
-central STRUCT!
+0 1 has taken a fork
