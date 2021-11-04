@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/03 14:40:17 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 14:09:14 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,16 @@ static int	join_thread(t_central *central, pthread_t *thread)
 	return (0);
 }
 #include <unistd.h>
+static int			when_thread_creation_failed(t_central *central, t_philo *philo, int i, pthread_t *thread)
+{
+	while (i > 0)
+	{
+		--i;
+		if (pthread_join(thread[i], NULL) != 0)
+			return (-1);
+	}
+	return (error_message(central, philo, 2));
+}
 
 static int	create_threads(t_central *central, t_philo *philo,
 	int i, pthread_t *thread)
@@ -53,15 +63,16 @@ static int	create_threads(t_central *central, t_philo *philo,
 		{
 			if (pthread_create(&thread[i], NULL,
 					routine_even_right_left, &philo[i]) != 0)
-				return (error_message(central, philo, 2));
+				return (when_thread_creation_failed(central, philo, i, thread));
 		}
 		else //odd
 		{
 			if (pthread_create(&thread[i], NULL,
 					routine_odd_left_right, &philo[i]) != 0)
-				return (error_message(central, philo, 2));
+				return (when_thread_creation_failed(central, philo, i, thread));
 		}
 		i++;
+		usleep(1000);
 	}
 	if (join_thread(central, thread) != 0)
 	{
@@ -69,20 +80,10 @@ static int	create_threads(t_central *central, t_philo *philo,
 		return (error_message(central, philo, 3));
 	}
 	// unlock_and_destroy(philo, central);
-	// usleep(1000);
+	// usleep(500);
 	free(thread);
 	return (0);
 }
-
-// if (create != 0) join alles ervoor
-
-// {
-// 	while (i > 0)
-// 	{
-// 		--i;
-// 		pthread_join(pt[i], NULL);
-// 	}
-// }
 
 int	main(int argc, char **argv)
 {
@@ -104,7 +105,7 @@ int	main(int argc, char **argv)
 		return (error_message(central, philo, 1));
 	if (create_threads(central, philo, 0, NULL) == -1)
 		return (-1);
-	// unlock_and_destroy(philo, central);
+	unlock_and_destroy(philo, central);
 	// system("leaks philo_one");
 	pthread_exit(NULL);
 	return (0);
