@@ -6,12 +6,13 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:58:27 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 14:10:59 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 15:02:23 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 #include <stdio.h>
 void	*routine_even_right_left(void *arg)

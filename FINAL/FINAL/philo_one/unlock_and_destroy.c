@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:19:03 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/27 12:00:01 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 15:05:14 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,12 @@ void	destroy_mutex(t_philo *philo)
 	pthread_mutex_destroy(philo->central->eat);
 	pthread_mutex_destroy(philo->central->write);
 	pthread_mutex_destroy(philo->central->status);
+	pthread_mutex_destroy(philo->central->full);
 	free(philo->central->eat);
 	free(philo->central->write);
 	free(philo->central->status);
 	free(philo->central->forks);
+	free(philo->central->full);
 }
 
 void	unlock_and_destroy(t_philo *philo, t_central *central)

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:52:55 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/03 15:42:50 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 13:44:20 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	eating_left_right(t_philo *philo)
 {
-	// if (check_status(philo) == ALIVE)
-	// {
+	if (check_status(philo) == ALIVE)
+	{
 		pthread_mutex_lock(philo->central->eat);
 		philo->last_eaten = get_time_mseconds();
 		write_state("is eating", philo, philo->ID);		
@@ -28,23 +28,21 @@ void	eating_left_right(t_philo *philo)
 		if (philo->meals_left == 0)
 			philo->central->num_of_philo_full++;
 		pthread_mutex_unlock(philo->central->full);
-	// }
-	// else
-	// {
-	// 	pthread_mutex_unlock(philo->lfork);
-	// 	pthread_mutex_unlock(philo->rfork);
-	// 	// pthread_mutex_unlock(philo->central->eat);
-		
-	// }
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->lfork);
+		pthread_mutex_unlock(philo->rfork);
+		// pthread_mutex_unlock(philo->central->eat);	
+	}
 	
 }
-
 
 void	eating_right_left(t_philo *philo)
 {
 	
-	// if (check_status(philo) == ALIVE)
-	// {
+	if (check_status(philo) == ALIVE)
+	{
 		pthread_mutex_lock(philo->central->eat);
 		philo->last_eaten = get_time_mseconds();
 		write_state("is eating", philo, philo->ID);
@@ -57,14 +55,16 @@ void	eating_right_left(t_philo *philo)
 		if (philo->meals_left == 0)
 			philo->central->num_of_philo_full++;
 		pthread_mutex_unlock(philo->central->full);	
-	// }
-	// else
-	// {
-	// 	pthread_mutex_unlock(philo->rfork);
-	// 	pthread_mutex_unlock(philo->lfork);
-	// 	// pthread_mutex_unlock(philo->central->eat);
+	}
+	else
+	{
+		pthread_mutex_unlock(philo->rfork);
+		pthread_mutex_unlock(philo->lfork);
+		// pthread_mutex_unlock(philo->central->eat);
 		
-	// }
+	}
 	
 }
  
+
+//  4054

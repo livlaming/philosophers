@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 14:24:26 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 15:05:29 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,5 @@ int	main(int argc, char **argv)
 		return (-1);
 	unlock_and_destroy(philo, central);
 	// system("leaks philo_one");
-	// pthread_exit(NULL);
 	return (0);
 }

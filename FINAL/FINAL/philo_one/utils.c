@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/03 13:06:08 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 12:41:23 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void	write_state(char *str, t_philo *philo, long ID)
 	pthread_mutex_lock(philo->central->write);
 	if (check_status(philo) == ALIVE)
 	{
-		if (!philo)
-			printf("%s\n", str);
-		else
+		// if (!philo)
+		// 	printf("%s\n", str);
+		// else
 			printf("%lld %zu %s\n",
 				get_time_mseconds() - philo->central->start_time, ID, str);
 	}

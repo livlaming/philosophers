@@ -6,13 +6,14 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 14:10:52 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 15:02:27 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 static void	one_philosopher(t_philo *philo)
 {
