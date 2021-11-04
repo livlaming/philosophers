@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 15:02:27 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 15:35:44 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-
-static void	one_philosopher(t_philo *philo)
-{
-	stupid_sleep(philo->central->time_to_die);
-	write_state("died", philo, philo->ID);
-	pthread_mutex_unlock(philo->lfork);
-	return ((void) NULL);
-}
 
 void	*routine_odd_left_right(void *arg)
 {
@@ -39,11 +31,6 @@ void	*routine_odd_left_right(void *arg)
 	{
 		pthread_mutex_lock(philo->lfork);
 		write_state("has taken a fork", philo, philo->ID);
-		if (philo->central->num_of_philo == 1)
-		{
-			one_philosopher(philo);
-			break;
-		}
 		pthread_mutex_lock(philo->rfork);
 		write_state("has taken a fork", philo, philo->ID);
 		eating_left_right(philo);
