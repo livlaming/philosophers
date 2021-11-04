@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 11:18:20 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 14:50:35 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:08:54 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 uint64_t	get_time_mseconds(void)
 {
-	struct		timeval	tv;
-	uint64_t	time_in_mill;
+	struct timeval	tv;
+	uint64_t		time_in_mill;
 
 	time_in_mill = 0;
 	gettimeofday(&tv, NULL);

@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:52:55 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 13:44:20 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:12:57 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	eating_left_right(t_philo *philo)
 	{
 		pthread_mutex_unlock(philo->lfork);
 		pthread_mutex_unlock(philo->rfork);
-		// pthread_mutex_unlock(philo->central->eat);	
 	}
 	
 }
@@ -59,12 +58,7 @@ void	eating_right_left(t_philo *philo)
 	else
 	{
 		pthread_mutex_unlock(philo->rfork);
-		pthread_mutex_unlock(philo->lfork);
-		// pthread_mutex_unlock(philo->central->eat);
-		
+		pthread_mutex_unlock(philo->lfork);		
 	}
 	
 }
- 
-
-//  4054

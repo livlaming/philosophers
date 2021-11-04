@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/10/29 15:43:41 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:06:37 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,13 @@
 /* 
 ** philo_struct = made for every philosopher
 ** philo_struct points to central information
+*/
+
+/* 
+** to avoid a deadlock I make a distinction between 
+** the "even" and "uneven" philosopers
+** even numbered philo's takes first the left fork and then the right
+** odd numbered philo's takes first the right fork and then the left
 */
 
 typedef struct s_central
@@ -90,7 +97,7 @@ void				unlock_and_destroy(t_philo *philo,
 void				destroy_mutex(t_philo *philo);
 void				destroy_forks(t_philo *philo);
 int					check_status(t_philo *philo);
-int		check_full(t_philo *philo);
+int					check_full(t_philo *philo);
 
 //REMOVE BELOW!
 int     			print_cur_central_struct(t_central *central);

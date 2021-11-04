@@ -6,12 +6,13 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 15:20:56 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:02:00 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdlib.h>
+#include <unistd.h>
 
 static int	check_input(int argc, char **argv)
 {
@@ -40,8 +41,9 @@ static int	join_thread(t_central *central, pthread_t *thread)
 	}
 	return (0);
 }
-#include <unistd.h>
-static int			when_thread_creation_failed(t_central *central, t_philo *philo, int i, pthread_t *thread)
+
+static int	when_thread_creation_failed(t_central *central, t_philo *philo,
+	int i, pthread_t *thread)
 {
 	while (i > 0)
 	{
@@ -55,7 +57,6 @@ static int			when_thread_creation_failed(t_central *central, t_philo *philo, int
 static int	create_threads(t_central *central, t_philo *philo,
 	int i, pthread_t *thread)
 {
-
 	thread = malloc(sizeof(pthread_t) * central->num_of_philo);
 	while (i < central->num_of_philo)
 	{
@@ -79,8 +80,6 @@ static int	create_threads(t_central *central, t_philo *philo,
 		free(thread);
 		return (error_message(central, philo, 3));
 	}
-	// unlock_and_destroy(philo, central);
-	// usleep(500);
 	free(thread);
 	return (0);
 }
@@ -106,10 +105,5 @@ int	main(int argc, char **argv)
 	if (create_threads(central, philo, 0, NULL) == -1)
 		return (-1);
 	unlock_and_destroy(philo, central);
-	// system("leaks philo_one");
 	return (0);
 }
-
-
-// [philo_one-Test #2]: Given 4 410 200 200 arguments to philo_one, no philosopher should die !
-// [philo_one-Test #3]: Given 4 800 200 200 arguments to philo_one, no philosopher should die !

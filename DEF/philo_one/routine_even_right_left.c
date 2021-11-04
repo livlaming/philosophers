@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:58:27 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 15:36:47 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:07:37 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,3 @@ void	*routine_even_right_left(void *arg)
 		return ((void *) NULL); // error?
 	return ((void *) NULL);
 }
-
-// 162099 1 is eating
-// 81246 3 is eating
