@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 16:53:15 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:02:00 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static int	create_threads(t_central *central, t_philo *philo,
 	thread = malloc(sizeof(pthread_t) * central->num_of_philo);
 	while (i < central->num_of_philo)
 	{
-		if (i & 1)
+		if (i & 1) //even
 		{
 			if (pthread_create(&thread[i], NULL,
 					routine_even_right_left, &philo[i]) != 0)
 				return (when_thread_creation_failed(central, philo, i, thread));
 		}
-		else
+		else //odd
 		{
 			if (pthread_create(&thread[i], NULL,
 					routine_odd_left_right, &philo[i]) != 0)

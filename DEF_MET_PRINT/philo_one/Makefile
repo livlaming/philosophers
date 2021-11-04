@@ -6,7 +6,7 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/11/04 16:52:34 by livlamin      ########   odam.nl          #
+#    Updated: 2021/11/03 14:47:02 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ SRCS = main.c \
 		hulpfunc_REMOVE.c
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pthread
+#-g
+# INC = philosophers.h
 
 all: $(NAME)
 

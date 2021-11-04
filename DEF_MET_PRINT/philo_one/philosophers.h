@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 16:53:23 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/04 16:50:15 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,7 @@ void				destroy_forks(t_philo *philo);
 int					check_status(t_philo *philo);
 int					check_full(t_philo *philo);
 
+//REMOVE BELOW!
+int     			print_cur_central_struct(t_central *central);
+int     			print_cur_philo_struct(t_philo *philo);	
 #endif
