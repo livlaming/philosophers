@@ -6,11 +6,11 @@
 #    By: livlamin <livlamin@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/08/16 13:26:59 by livlamin      #+#    #+#                  #
-#    Updated: 2021/11/04 16:52:34 by livlamin      ########   odam.nl          #
+#    Updated: 2021/11/05 09:55:47 by livlamin      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = philo_one
+NAME = philosophers
 SRCS = main.c \
 		utils.c \
 		time_and_sleep.c \
@@ -19,8 +19,8 @@ SRCS = main.c \
 		routine_even_right_left.c \
 		eating.c \
 		director.c \
-		unlock_and_destroy.c \
-		hulpfunc_REMOVE.c
+		unlock_and_destroy.c
+
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pthread
 
