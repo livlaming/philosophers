@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/17 14:16:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 16:53:23 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/24 10:16:06 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int					init_philo_struct(t_central *central,
 						t_philo *philo);
 void				stupid_sleep(uint64_t ms);
 void				write_state(char *str, t_philo *philo, long ID);
-void				*routine_odd_left_right(void *arg);
-void				*routine_even_right_left(void *arg);
+void				*routine_even_left_right(void *arg);
+void				*routine_odd_right_left(void *arg);
 void				eating_left_right(t_philo *philo);
 void				eating_right_left(t_philo *philo);
 void				*direct(void *arg);

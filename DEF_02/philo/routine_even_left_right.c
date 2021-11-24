@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   routine_odd_left_right.c                           :+:    :+:            */
+/*   routine_even_left_right.c                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/19 12:32:01 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 16:48:29 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/24 10:13:39 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-void	*routine_odd_left_right(void *arg)
+void	*routine_even_left_right(void *arg)
 {
 	t_philo		*philo;
 	pthread_t	director;
