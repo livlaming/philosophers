@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/29 10:40:49 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 13:11:17 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,26 @@ void	init_philo_struct(t_central *central, t_philo *philo)
 	return ;
 }
 
-static int	check_and_free(t_central *central, int num)
+static int	free_all(t_central *central)
 {
-	if (num >= 1)
-		free(central->eat);
-	if (num >= 2)
-		free(central->write);
-	if (num >= 3)
-		free(central->status);
+	free(central->eat);
+	free(central->write);
+	free(central->status);
+	free(central->full);
 	return (-1);
 }
 
 static int	init_eat_write_status(t_central *central)
 {
 	central->eat = malloc(sizeof(pthread_mutex_t));
-	if (!central->eat)
-		return (-1);
-	pthread_mutex_init(central->eat, NULL);
 	central->write = malloc(sizeof(pthread_mutex_t));
-	if (!central->write)
-		return (check_and_free(central, 1));
-	pthread_mutex_init(central->write, NULL);
 	central->status = malloc(sizeof(pthread_mutex_t));
-	if (!central->status)
-		return (check_and_free(central, 2));
-	pthread_mutex_init(central->status, NULL);
 	central->full = malloc(sizeof(pthread_mutex_t));
-	if (!central->full)
-		return (check_and_free(central, 3));
+	if (!central->eat || !central->write || !central->status || !central->full)
+		return (free_all(central));
+	pthread_mutex_init(central->eat, NULL);
+	pthread_mutex_init(central->write, NULL);
+	pthread_mutex_init(central->status, NULL);
 	pthread_mutex_init(central->full, NULL);
 	return (0);
 }

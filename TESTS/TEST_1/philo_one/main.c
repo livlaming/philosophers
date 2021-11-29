@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/29 10:35:57 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 14:19:04 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ static int	join_thread(t_central *central, pthread_t *thread)
 	while (i < central->num_of_philo)
 	{
 		if (pthread_join(thread[i], NULL) != 0)
+		{
+			free(thread);
 			return (-1);
+		}
 		i++;
 	}
 	return (0);
@@ -49,8 +52,9 @@ static int	when_thread_creation_failed(t_central *central, t_philo *philo,
 	{
 		--i;
 		if (pthread_join(thread[i], NULL) != 0)
-			return (-1);
+			return (error_message(central, philo, 2));
 	}
+	free(thread);
 	return (error_message(central, philo, 2));
 }
 
@@ -58,6 +62,8 @@ static int	create_threads(t_central *central, t_philo *philo,
 	int i, pthread_t *thread)
 {
 	thread = malloc(sizeof(pthread_t) * central->num_of_philo);
+	if (!thread)
+		return (error_message(central, philo, 5));
 	while (i < central->num_of_philo)
 	{
 		if (i & 1)
@@ -76,10 +82,7 @@ static int	create_threads(t_central *central, t_philo *philo,
 		usleep(1000);
 	}
 	if (join_thread(central, thread) != 0)
-	{
-		free(thread);
 		return (error_message(central, philo, 3));
-	}
 	free(thread);
 	return (0);
 }
@@ -93,11 +96,11 @@ int	main(int argc, char **argv)
 	philo = NULL;
 	central = malloc(sizeof(t_central));
 	if (!central)
-		return (-1);
+		return (error_message(central, philo, 6));
 	if ((argc != 5 && argc != 6) || check_input(argc, argv) == -1)
 		return (error_message(central, philo, 1));
-	error = 0;
-	if ((error = init_central_struct(central, argv, argc, 0)) != 0)
+	error = init_central_struct(central, argv, argc, 0);
+	if (error != 0)
 		return (error_message(central, philo, error));
 	philo = malloc(sizeof(t_philo) * central->num_of_philo);
 	if (!philo)
