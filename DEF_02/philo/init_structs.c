@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/29 10:09:45 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 10:40:49 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_philo_struct(t_central *central, t_philo *philo)
 		philo[ID].central = central;
 		ID++;
 	}
-	return;
+	return ;
 }
 
 static int	check_and_free(t_central *central, int num)
