@@ -6,14 +6,14 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/24 10:51:36 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 10:09:45 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
 #include <stdlib.h>
 
-int	init_philo_struct(t_central *central, t_philo *philo)
+void	init_philo_struct(t_central *central, t_philo *philo)
 {
 	int	ID;
 
@@ -31,7 +31,7 @@ int	init_philo_struct(t_central *central, t_philo *philo)
 		philo[ID].central = central;
 		ID++;
 	}
-	return (0);
+	return;
 }
 
 static int	check_and_free(t_central *central, int num)
@@ -42,7 +42,7 @@ static int	check_and_free(t_central *central, int num)
 		free(central->write);
 	if (num >= 3)
 		free(central->status);
-	return(-1)
+	return (-1);
 }
 
 static int	init_eat_write_status(t_central *central)
