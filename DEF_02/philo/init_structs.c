@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/08/24 17:43:57 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/29 13:09:09 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 13:11:17 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	init_philo_struct(t_central *central, t_philo *philo)
 	return ;
 }
 
-static int 	free_all(t_central *central)
+static int	free_all(t_central *central)
 {
 	free(central->eat);
 	free(central->write);
