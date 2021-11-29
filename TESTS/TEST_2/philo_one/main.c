@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/04 16:53:15 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 10:35:57 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ static int	create_threads(t_central *central, t_philo *philo,
 		if (i & 1)
 		{
 			if (pthread_create(&thread[i], NULL,
-					routine_even_right_left, &philo[i]) != 0)
+					routine_even_left_right, &philo[i]) != 0)
 				return (when_thread_creation_failed(central, philo, i, thread));
 		}
 		else
 		{
 			if (pthread_create(&thread[i], NULL,
-					routine_odd_left_right, &philo[i]) != 0)
+					routine_odd_right_left, &philo[i]) != 0)
 				return (when_thread_creation_failed(central, philo, i, thread));
 		}
 		i++;
@@ -88,6 +88,7 @@ int	main(int argc, char **argv)
 {
 	t_central	*central;
 	t_philo		*philo;
+	int			error;
 
 	philo = NULL;
 	central = malloc(sizeof(t_central));
@@ -95,13 +96,13 @@ int	main(int argc, char **argv)
 		return (-1);
 	if ((argc != 5 && argc != 6) || check_input(argc, argv) == -1)
 		return (error_message(central, philo, 1));
-	if (init_central_struct(central, argv, argc, 0) == -1)
-		return (error_message(central, philo, 1));
+	error = 0;
+	if ((error = init_central_struct(central, argv, argc, 0)) != 0)
+		return (error_message(central, philo, error));
 	philo = malloc(sizeof(t_philo) * central->num_of_philo);
 	if (!philo)
-		return (-1);
-	if (init_philo_struct(central, philo) == -1)
-		return (error_message(central, philo, 1));
+		return (error_message(central, philo, 4));
+	init_philo_struct(central, philo);
 	if (create_threads(central, philo, 0, NULL) == -1)
 		return (-1);
 	unlock_and_destroy(philo, central);
