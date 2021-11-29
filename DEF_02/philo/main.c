@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/26 11:50:51 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/29 11:55:57 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 13:10:05 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ static int	create_threads(t_central *central, t_philo *philo,
 	int i, pthread_t *thread)
 {
 	thread = malloc(sizeof(pthread_t) * central->num_of_philo);
+	if (!thread)
+		return (error_message(central, philo, 5));
 	while (i < central->num_of_philo)
 	{
 		if (i & 1)
@@ -93,7 +95,7 @@ int	main(int argc, char **argv)
 	philo = NULL;
 	central = malloc(sizeof(t_central));
 	if (!central)
-		return (-1);
+		return (error_message(central, philo, 6));
 	if ((argc != 5 && argc != 6) || check_input(argc, argv) == -1)
 		return (error_message(central, philo, 1));
 	error = init_central_struct(central, argv, argc, 0);
@@ -106,5 +108,6 @@ int	main(int argc, char **argv)
 	if (create_threads(central, philo, 0, NULL) == -1)
 		return (-1);
 	unlock_and_destroy(philo, central);
+	system("leaks philo");
 	return (0);
 }

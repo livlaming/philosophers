@@ -6,7 +6,7 @@
 /*   By: livlamin <livlamin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/10/18 17:46:28 by livlamin      #+#    #+#                 */
-/*   Updated: 2021/11/29 11:55:31 by livlamin      ########   odam.nl         */
+/*   Updated: 2021/11/29 13:07:21 by livlamin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ int	error_message(t_central *central, t_philo *philo, int error)
 		write(1, "Failed to create thread\n", 24);
 	if (error == 3)
 		write(1, "Failed to join thread\n", 24);
-	if (error == 4 || error == -1)
+	if (error == 4 || error == -1 || error == 5 || error == 6)
 		write(1, "Malloc failed\n", 14);
+	if (error == 6)
+		return (-1);
 	if (error != 4 && error != -1)
 		unlock_and_destroy(philo, central);
 	else
 	{
 		free(central->forks);
 		free(central);
-	}
-		
+	}	
 	return (-1);
 }
 
